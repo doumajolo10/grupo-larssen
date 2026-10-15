@@ -1,0 +1,7 @@
+# material de pesquisa e ferramentas (não vai para o site)
+pesquisa/*
+!pesquisa/br-uf.json
+!pesquisa/ufs.json
+build/node_modules/
+.impeccable/
+.claude/
