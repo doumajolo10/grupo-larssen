@@ -59,7 +59,6 @@ const EMPRESAS = [
     servicos: [
       ["Transporte de madeira", "Toras, madeira serrada, dormentes e madeira tratada, com a carga amarrada e protegida."],
       ["Cargas para todo o Brasil", "Viagens interestaduais saindo do Noroeste gaúcho."],
-      ["Lotação e fracionado", "Do pacote ao caminhão fechado, conforme o pedido."],
       ["Frota própria", "Caminhões e carretas do próprio grupo."],
     ],
     confirmar: true,
@@ -69,12 +68,10 @@ const EMPRESAS = [
     id: "escavacoes", nome: "Larssen Escavações", curto: "Escavações", km: 25, cor: "#E2A400",
     logo: "assets/logos/escavacoes.svg", icone: "assets/logos/icone-escavacoes.svg",
     frase: "Escavadeiras e rompedor para preparar o terreno da obra.",
-    texto: "No fim da rota está a obra. A Larssen Escavações atende obras urbanas e rurais com máquinas próprias, como escavadeira Volvo com rompedor hidráulico e pá carregadeira, e operadores experientes.",
+    texto: "No fim da rota está a obra. A Larssen Escavações trabalha com máquinas próprias, como escavadeira Volvo com rompedor hidráulico e pá carregadeira.",
     servicos: [
-      ["Rompimento de pedras e concreto", "Rompedor hidráulico para rocha, lajes e estruturas de concreto."],
-      ["Escavação e valas", "Abertura de valas para redes, drenagem e fundações."],
-      ["Terraplenagem", "Corte, aterro e nivelamento de terrenos para casas, galpões e loteamentos."],
-      ["Limpeza de terreno", "Remoção de vegetação, entulho e tocos antes da obra."],
+      ["Rompimento de pedras e concreto", "Escavadeira com rompedor hidráulico para rocha e concreto."],
+      ["Escavação", "Escavadeiras próprias para abrir o terreno da obra."],
       ["Carga de material", "Pá carregadeira para carregar terra, pedra e entulho."],
     ],
     confirmar: true,

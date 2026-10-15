@@ -27,7 +27,7 @@ export function iniciarCena(canvas, opcoes = {}) {
   const NEBLINA = new THREE.Color("#e4e8e2");
   const cena = new THREE.Scene();
   cena.background = NEBLINA.clone();
-  cena.fog = new THREE.Fog(NEBLINA, 170, 560);
+  cena.fog = leve ? new THREE.Fog(NEBLINA, 110, 420) : new THREE.Fog(NEBLINA, 170, 560);
 
   const camera = new THREE.PerspectiveCamera(42, 1, 0.5, 900);
 

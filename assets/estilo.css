@@ -252,7 +252,7 @@ section { position: relative; }
   .legenda3d { left: var(--margem); right: auto; top: 86px; bottom: auto; width: min(360px, 100% - 2 * var(--margem)); padding: 12px 14px; }
   .legenda3d p { font-size: 14px; }
   .rolar { display: none; }
-  .hero3d .veu { background: linear-gradient(0deg, rgba(243, 244, 241, .96) 0%, rgba(243, 244, 241, .85) 34%, rgba(243, 244, 241, 0) 62%); }
+  .hero3d .veu { background: linear-gradient(0deg, rgba(243, 244, 241, .97) 0%, rgba(243, 244, 241, .94) 48%, rgba(243, 244, 241, .7) 60%, rgba(243, 244, 241, 0) 74%); }
 }
 
 /* ---------- frase que acende ---------- */
