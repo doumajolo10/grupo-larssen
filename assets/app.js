@@ -183,6 +183,19 @@
   }
   contar(); desenharItens();
 
+  // ---------- catálogo: vista romaneio / fotos ----------
+  var cats = $$("[data-vistas]");
+  if (cats.length) {
+    var vista = "lista"; try { vista = localStorage.getItem("larssen-vista") || "lista"; } catch (e) {}
+    var aplicarVista = function (v) {
+      cats.forEach(function (c) { c.classList.toggle("vista-lista", v === "lista"); c.classList.toggle("vista-grade", v === "grade"); });
+      $$("[data-vista]").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-vista") === v ? "true" : "false"); });
+      if (temGsap) ScrollTrigger.refresh();
+    };
+    $$("[data-vista]").forEach(function (b) { b.addEventListener("click", function () { var v = b.getAttribute("data-vista"); try { localStorage.setItem("larssen-vista", v); } catch (e) {} aplicarVista(v); }); });
+    aplicarVista(vista);
+  }
+
   // ---------- catálogo: filtros ----------
   var cat = $("[data-catalogo]");
   if (cat) {
@@ -195,6 +208,7 @@
         var ok = (filtro === "todos" || c.getAttribute("data-linha") === filtro || c.getAttribute("data-empresa-id") === filtro) && (!q || norm(c.textContent).indexOf(q) >= 0);
         c.hidden = !ok; if (ok) n++;
       });
+      $$(".grupo-cat", cat).forEach(function (g) { g.hidden = !$$(".ticket", g).some(function (t) { return !t.hidden; }); });
       if (cont) cont.textContent = n + (n === 1 ? " produto" : " produtos");
       if (vazio) vazio.hidden = n > 0;
       if (temGsap) ScrollTrigger.refresh();
@@ -368,7 +382,9 @@
           },
         });
         window.LarssenCena = cena;
-        var sync = function () { var p = progressoHero(); cena.definirProgresso(p); atualizarLegenda(p); hero.classList.toggle("viajando", p > 0.07 && p < 0.985); };
+        var sync = function () { var p = progressoHero(); cena.definirProgresso(p); atualizarLegenda(p); hero.classList.toggle("viajando", p > 0.07);
+          var f = Math.min(1, Math.max(0, (p - 0.86) / 0.14)); f = f * f * (3 - 2 * f); cena.definirFim(f); hero.classList.toggle("dissolvendo", f > 0.35);
+          if (!cena.temDissolucao) canvas.style.opacity = (1 - f).toFixed(3); };
         window.addEventListener("scroll", sync, { passive: true }); sync();
         pronto = true;
       }).catch(function (err) { console.warn("3D indisponível", err); hero.classList.add("sem3d"); pronto = true; });

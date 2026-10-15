@@ -21,7 +21,7 @@ const emp = id => EMPRESAS.find(e => e.id === id);
 const linha = id => LINHAS.find(l => l.id === id);
 const base = f => f.replace(/\.(jpe?g|png)$/i, "");
 const dims = {};
-for (const f of fs.readdirSync(path.join(RAIZ, "img/g"))) {
+for (const f of fs.readdirSync(path.join(RAIZ, "img/g")).filter(f => f.endsWith(".webp"))) {
   try { const o = execFileSync("ffprobe", ["-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height", "-of", "csv=p=0", path.join(RAIZ, "img/g", f)]).toString().trim().split(","); dims[f.replace(".webp", "")] = o.map(Number); } catch (e) {}
 }
 function img(foto, alt, { sizes = "100vw", cls = "", attrs = "", carregar = "lazy" } = {}) {
@@ -120,7 +120,7 @@ function pagina({ arquivo, titulo, descricao, corpo, kmIni = 0, kmFim = 25, imag
 <link rel="preload" href="fontes/Barlow-400-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fontes/fontes.css?v=${V}">
 <link rel="stylesheet" href="assets/estilo.css?v=${V}">
-${home ? `<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+${home ? `<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js">` : ""}
 <script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "Organization", name: "Grupo Larssen", url: SITE, telephone: "+55 55 3522-1635", address: { "@type": "PostalAddress", streetAddress: CONTATO.endereco, addressLocality: "Três Passos", addressRegion: "RS", postalCode: CONTATO.cep, addressCountry: "BR" }, sameAs: ["https://www.instagram.com/grupolarssen", CONTATO.facebook] })}</script>
 </head>
@@ -168,6 +168,21 @@ function listaServicos(serv) {
 }
 function chamadaFinal(titulo = "Monte seu romaneio e receba o orçamento no WhatsApp.") {
   return `<section class="chamada bloco"><div class="miolo"><h2>${titulo}</h2><div class="acoes"><a class="botao" href="produtos.html">${IC.romaneio} Abrir o catálogo</a><a class="botao zap" href="${zap("Olá, Grupo Larssen! Quero um orçamento.")}" target="_blank" rel="noopener">${IC.zap} Falar agora</a></div></div></section>`;
+}
+
+// ---------- catálogo agrupado (romaneio) ----------
+const KM_LINHA = { bruta: 2, beneficiada: 5, tratadas: 9, casas: 5, agro: 11, industria: 11, montadas: 5 };
+function catalogo(prods, { comVistas = true, ancora = "" } = {}) {
+  const grupos = LINHAS.filter(l => prods.some(p => p.linha === l.id));
+  const vistas = comVistas ? `<div class="vistas" role="group" aria-label="Ver catálogo como"><button type="button" data-vista="lista" aria-pressed="true">${IC.romaneio} Romaneio</button><button type="button" data-vista="grade" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg> Fotos</button></div>` : "";
+  let i = 0;
+  return vistas + `<div class="catalogo vista-lista" data-vistas>${grupos.map(l => {
+    const lista = prods.filter(p => p.linha === l.id);
+    return `<section class="grupo-cat" data-grupo="${l.id}"${ancora ? ` id="${ancora}-${l.id}"` : ""}>
+      <header class="cab-grupo"><span class="marco">KM<b>${KM_LINHA[l.id] ?? ""}</b></span><div><h2>${esc(l.nome)}</h2><p>${esc(l.texto)}</p></div><span class="qtd-grupo">${lista.length} ${lista.length === 1 ? "item" : "itens"}</span></header>
+      <div class="grade-romaneio">${lista.map(p => ticket(p, { carregar: i++ < 4 ? "eager" : "lazy" })).join("")}</div>
+    </section>`;
+  }).join("")}</div>`;
 }
 
 // ---------- mapa do Brasil (IBGE) ----------
@@ -290,21 +305,21 @@ const paginas = [];
 </section>
 
 <section class="rota-h" data-rota-h data-saida="A rota">
-  <div class="miolo cabeca cabeca-r"><h2>A rota da madeira, quilômetro por quilômetro.</h2><p class="lead">Cada etapa acontece dentro do grupo. Por isso a gente responde pelo produto do plantio até a sua obra.</p></div>
+  <div class="miolo cabeca-r"><div class="cabeca com-marco"><span class="marco">KM<b>0–25</b></span><div><h2>A rota da madeira, quilômetro por quilômetro.</h2><p class="lead">Cada etapa acontece dentro do grupo. Por isso a gente responde pelo produto do plantio até a sua obra.</p></div></div></div>
   <div class="janela"><div class="pista">${paradas}</div></div>
   <div class="estrada-h" aria-hidden="true"><span class="caminhao-h">${IC.caminhaoLado}</span></div>
 </section>
 
 <section class="bloco" aria-labelledby="t-empresas">
   <div class="miolo">
-    <div class="cabeca"><h2 id="t-empresas">Cinco empresas, cinco saídas da mesma estrada.</h2><p class="lead">Escolha por onde entrar: cada empresa tem página própria, com serviços, fotos e contato direto.</p></div>
+    <div class="cabeca com-marco"><span class="marco">KM<b>5</b></span><div><h2 id="t-empresas">Cinco empresas, cinco saídas da mesma estrada.</h2><p class="lead">Escolha por onde entrar: cada empresa tem página própria, com serviços, fotos e contato direto.</p></div></div>
     ${saidas}
   </div>
 </section>
 
 <section class="autoclave bloco" data-autoclave data-saida="Autoclave">
   <div class="miolo">
-    <div class="cabeca"><h2>Seis estações dentro da autoclave.</h2><p class="lead">Ciclos alternados de vácuo e pressão levam o preservativo CCA tipo C até o miolo da madeira. Role e acompanhe uma carga.</p></div>
+    <div class="cabeca com-marco"><span class="marco">KM<b>9</b></span><div><h2>Seis estações dentro da autoclave.</h2><p class="lead">Ciclos alternados de vácuo e pressão levam o preservativo CCA tipo C até o miolo da madeira. Role e acompanhe uma carga.</p></div></div>
     <div class="auto-grade">
       <div class="auto-palco">${desenhoAutoclave()}</div>
       <div class="estacoes">${AUTOCLAVE.map(([t, d], i) => `<div class="estacao${i === 0 ? " on" : ""}"><span class="n">${i + 1}</span><h3>${t}</h3><p>${d}</p></div>`).join("")}</div>
@@ -316,7 +331,7 @@ const paginas = [];
 
 <section class="bloco" aria-labelledby="t-cat" data-saida="Produtos">
   <div class="miolo">
-    <div class="cabeca"><h2 id="t-cat">Do dormente à maravalha, em bitolas de verdade.</h2><p class="lead">Cada produto mostra medidas, espécie e as etapas por onde passou. Junte os que precisa no romaneio e mande tudo de uma vez.</p></div>
+    <div class="cabeca com-marco"><span class="marco">KM<b>2–11</b></span><div><h2 id="t-cat">Do dormente à maravalha, em bitolas de verdade.</h2><p class="lead">Cada produto mostra medidas, espécie e as etapas por onde passou. Junte os que precisa no romaneio e mande tudo de uma vez.</p></div></div>
     <div class="grade-romaneio">${destaque}</div>
     <p style="margin-top:36px"><a class="botao verde" href="produtos.html">Ver os ${PRODUTOS.length} produtos ${IC.seta}</a></p>
   </div>
@@ -347,7 +362,7 @@ for (const e of EMPRESAS) {
   const marca = e.logo ? `<span class="logo-capa"><img src="${e.logo}" alt="${esc(e.nome)}" width="280" height="70"></span>` : "";
   const nums = e.numeros ? `<div class="numeros revela">${e.numeros.map(([n, t]) => `<div><b class="num">${esc(n)}</b><span>${esc(t)}</span></div>`).join("")}</div>` : "";
   const prods = PRODUTOS.filter(p => linha(p.linha).empresa === e.id);
-  const linhasBloco = e.linhas ? `<section class="bloco" style="background:var(--concreto)" data-saida="Produtos"><div class="miolo"><div class="cabeca"><h2>Linhas de produto</h2><p class="lead">${prods.length} produtos com bitolas e espécies. Adicione ao romaneio e peça o orçamento.</p></div><div class="grade-romaneio">${prods.map(p => ticket(p)).join("")}</div></div></section>` : "";
+  const linhasBloco = e.linhas ? `<section class="bloco" style="background:var(--concreto)" data-saida="Produtos"><div class="miolo"><div class="cabeca"><h2>Linhas de produto</h2><p class="lead">${prods.length} produtos com bitolas e espécies. Adicione ao romaneio e peça o orçamento.</p></div>${catalogo(prods)}</div></section>` : "";
   const servBloco = e.servicos ? `<section class="bloco" data-saida="Serviços"><div class="miolo grade-2"><div class="revela"><h2>O que a ${esc(e.curto === "Transportes" ? "Log Larssen" : e.curto)} faz</h2><p class="lead" style="margin-top:18px">${esc(e.frase)}</p><p style="margin-top:22px"><a class="botao zap" href="${zap(`Olá! Quero um orçamento com a ${e.nome}.`)}" target="_blank" rel="noopener">${IC.zap} Pedir orçamento</a></p></div><div class="revela">${listaServicos(e.servicos)}</div></div></section>` : "";
   const auto = e.id === "tratadas" ? `<section class="autoclave bloco" data-autoclave data-saida="Autoclave"><div class="miolo"><div class="cabeca"><h2>Como a autoclave trata a madeira</h2><p class="lead">Vácuo, pressão e CCA tipo C: a solução preservativa entra até a saturação das fibras.</p></div><div class="auto-grade"><div class="auto-palco">${desenhoAutoclave()}</div><div class="estacoes">${AUTOCLAVE.map(([t, d], i) => `<div class="estacao${i === 0 ? " on" : ""}"><span class="n">${i + 1}</span><h3>${t}</h3><p>${d}</p></div>`).join("")}</div></div><div class="cca"><div><b>C</b><span>Cromo fixa os ingredientes nas fibras.</span></div><div><b>C</b><span>Cobre combate os fungos apodrecedores.</span></div><div><b>A</b><span>Arsênio protege contra cupim e broca.</span></div></div></div></section>` : "";
   const galeria = `<section class="bloco" data-saida="Fotos"><div class="miolo"><div class="cabeca"><h2>Fotos</h2></div><div class="galeria">${e.fotos.map(f => `<a href="img/g/${base(f)}.webp" class="mascara">${img(f, e.nome, { sizes: "(min-width:700px) 58vw, 92vw" })}</a>`).join("")}</div></div></section>`;
@@ -377,9 +392,8 @@ ${chamadaFinal(e.servicos && !e.linhas ? `Fale com a ${esc(e.curto === "Transpor
 <section class="bloco" style="padding-top:20px" data-catalogo data-saida="Catálogo">
   <div class="miolo">
     <div class="filtros"><div class="linha">${chips}<label class="busca">${IC.busca}<span class="sr">Buscar produto</span><input type="search" data-busca placeholder="Buscar: dormente, deck, eucalipto…"></label></div></div>
-    <h2 class="sr">Produtos do catálogo</h2>
     <p class="contagem" data-contagem aria-live="polite">${PRODUTOS.length} produtos</p>
-    <div class="grade-romaneio">${PRODUTOS.map((p, i) => ticket(p, { carregar: i < 6 ? "eager" : "lazy" })).join("")}</div>
+    ${catalogo(PRODUTOS)}
     <div class="vazio" data-vazio hidden><p><b>Nenhum produto com esse nome.</b> Tente outra palavra ou fale direto com a gente: fazemos cortes especiais sob medida.</p><a class="botao zap" href="${zap("Olá! Procuro um produto que não achei no catálogo.")}" target="_blank" rel="noopener">${IC.zap} Perguntar no WhatsApp</a></div>
   </div>
 </section>

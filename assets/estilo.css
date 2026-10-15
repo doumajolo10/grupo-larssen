@@ -609,3 +609,69 @@ a.canal:hover { transform: translateY(-2px); box-shadow: var(--sombra-baixa); }
 .ticket .corpo { background: repeating-linear-gradient(to bottom, transparent 0 31px, rgba(150, 158, 146, .38) 31px 32px); background-position: 0 6px; }
 .carimbo { border-width: 2.5px; opacity: 1; }
 @media (max-width: 1099px) { .hero3d:not(.viajando) .pino { opacity: 0 !important; pointer-events: none; } }
+
+/* fim da rota: a cena se dissolve no papel e a sinalização sai junto */
+.hero3d .placa-saidas, .hero3d .legenda3d, .hero3d .pinos { transition: opacity .5s var(--ease); }
+.hero3d.dissolvendo .placa-saidas, .hero3d.dissolvendo .legenda3d, .hero3d.dissolvendo .pinos, .hero3d.dissolvendo .rolar { opacity: 0; pointer-events: none; }
+.hero3d.dissolvendo .veu { opacity: 0; }
+
+/* ---------- títulos com marco de km ---------- */
+.cabeca.com-marco { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 22px; max-width: 940px; align-items: start; }
+.cabeca.com-marco > .marco { margin-top: 6px; }
+.cabeca.com-marco > div { display: grid; gap: 22px; }
+.cabeca.com-marco > div p { margin: 0; }
+.autoclave .cabeca.com-marco > .marco { box-shadow: none; }
+@media (max-width: 600px) { .cabeca.com-marco { grid-template-columns: 1fr; gap: 14px; } .cabeca.com-marco > .marco { justify-self: start; } }
+
+/* ---------- catálogo: romaneio (lista) e fotos (grade) ---------- */
+.vistas { display: inline-flex; gap: 0; border-radius: 10px; overflow: hidden; box-shadow: inset 0 0 0 1.5px var(--linha-2); background: #fff; margin: 0 0 22px; }
+.vistas button { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px; border: 0; background: none; cursor: pointer; font: 700 16px/1 var(--fonte-placa); letter-spacing: .02em; color: var(--tinta-2); transition: background-color .2s, color .2s; }
+.vistas button svg { width: 18px; }
+.vistas button[aria-pressed="true"] { background: var(--tinta); color: #fff; }
+.grupo-cat { margin-bottom: clamp(36px, 5vw, 64px); }
+.grupo-cat[hidden] { display: none; }
+.cab-grupo { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 18px; align-items: start; padding-bottom: 18px; margin-bottom: 18px; border-bottom: 2px solid var(--tinta); }
+.cab-grupo .marco { margin-top: 4px; }
+.cab-grupo h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 6px; }
+.cab-grupo p { margin: 0; color: var(--tinta-2); font-size: 17px; max-width: 70ch; }
+.cab-grupo .qtd-grupo { font: 700 15px/1 var(--fonte-placa); letter-spacing: .04em; color: var(--tinta-3); padding-top: 10px; white-space: nowrap; }
+.cab-colunas { display: none; }
+/* lista */
+.vista-lista .grade-romaneio { display: block; background: #fdfdfb; border-radius: 10px; box-shadow: var(--sombra-baixa); overflow: hidden; }
+.vista-lista .cab-colunas { display: grid; grid-template-columns: 150px minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, .95fr) 190px; gap: 22px; padding: 0 18px 8px; font: 700 13px/1 var(--fonte-placa); letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-3); }
+.vista-lista .ticket { display: grid; grid-template-columns: 150px minmax(0, 1fr); border-radius: 0; box-shadow: none; background: transparent; border-bottom: 1px dashed var(--linha-2); transform: none !important; }
+.vista-lista .ticket:last-child { border-bottom: 0; }
+.vista-lista .ticket:hover { background: #f6f7f3; }
+.vista-lista .ticket .foto { aspect-ratio: 4 / 3; margin: 14px 0 14px 14px; border-radius: 6px; align-self: start; }
+.vista-lista .ticket .serrilha { display: none; }
+.vista-lista .ticket .corpo { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, .95fr) 190px; grid-template-areas: "nome bit car acao" "uso bit car acao"; column-gap: 22px; row-gap: 6px; align-items: start; padding: 16px 18px 16px 22px; background: none; }
+.vista-lista .ticket h3 { grid-area: nome; font-size: 23px; }
+.vista-lista .ticket .uso { grid-area: uso; font-size: 15px; }
+.vista-lista .ticket .bitolas { grid-area: bit; margin: 0; }
+.vista-lista .ticket .bitolas li:first-child { padding-top: 0; }
+.vista-lista .ticket .carimbos { grid-area: car; margin: 0; align-content: start; }
+.vista-lista .ticket .pe { grid-area: acao; margin: 0; padding: 0; flex-direction: column; align-items: stretch; gap: 10px; }
+.vista-lista .ticket .pe .bt-add { justify-content: center; }
+@media (max-width: 1099px) {
+  .vista-lista .cab-colunas { display: none; }
+  .vista-lista .ticket .corpo { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "nome nome" "uso uso" "bit car" "acao acao"; }
+  .vista-lista .ticket .pe { flex-direction: row; align-items: center; justify-content: space-between; }
+}
+@media (max-width: 640px) {
+  .vista-lista .ticket { grid-template-columns: 96px minmax(0, 1fr); }
+  .vista-lista .ticket .foto { margin: 12px 0 0 12px; }
+  .vista-lista .ticket .corpo { grid-template-columns: 1fr; grid-template-areas: "nome" "uso" "bit" "car" "acao"; padding: 12px 14px 14px; }
+  .cab-grupo { grid-template-columns: auto minmax(0, 1fr); }
+  .cab-grupo .qtd-grupo { display: none; }
+}
+/* grade */
+.vista-grade .cab-colunas { display: none; }
+
+/* filtros do catálogo no celular: uma faixa que desliza */
+@media (max-width: 760px) {
+  .filtros { overflow: hidden; }
+  .filtros .linha { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding: 3px 2px 4px; }
+  .filtros .linha::-webkit-scrollbar { display: none; }
+  .filtros .chip { flex: none; }
+  .filtros .busca { flex: 0 0 240px; }
+}

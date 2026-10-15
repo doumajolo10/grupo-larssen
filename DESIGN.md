@@ -372,3 +372,10 @@ Raised plates with condensed type, confident and tactile.
 - **Don't** use hard offset shadows or uncolored black shadows; shadows are soft and ink-tinted.
 - **Don't** redraw or recolor the original company logos.
 - **Don't** add autonomous loops that cannot be switched off by the calmo policy.
+
+## Additions (2026-10-15, improvement round)
+
+- **3D scene finish:** MeshStandard materials with a RoomEnvironment reflection for metal, glass and water; layered pines, pale-trunk eucalyptus and clustered native crowns; canopy-darkened ground; açude; drifting cloud sprites; sawmill dust in the sun; the sun follows the camera target so shadows stay crisp. Post chain on desktop: RenderPass → OutputPass → grading pass (slight contrast and warmth, vignette, film grain).
+- **Dissolve to paper:** the last 14% of the hero scroll dissolves the scene into the page ground (#F3F4F1) through fbm noise with a thin signage-green edge; signage, caption and pins fade with it. Mobile (no post chain) fades the canvas instead.
+- **Section headings with km post:** `.cabeca.com-marco` places a marco de km beside the h2 (never above it). Use only where the km is real route information.
+- **Catalog as romaneio:** products are grouped by line (`.grupo-cat` with marco, h2, description and item count) and shown by default as a ruled ledger (`.vista-lista`: photo, name and use, bitolas, carimbos, species and add button per row). A "Fotos" toggle switches to the ticket grid (`.vista-grade`); the choice is remembered per visitor. Filters hide empty groups. On phones the filter chips are a single swipeable strip.

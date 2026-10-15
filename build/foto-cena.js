@@ -10,10 +10,10 @@ const url = f => "file:///" + path.resolve(f).split(path.sep).join("/");
   const pontos = (process.argv[2] || "0,0.3,0.55,0.85").split(",").map(Number);
   for (const t of pontos) {
     const t0 = Date.now();
-    await p.goto(url("pesquisa/ver/cena.html") + "?t=" + t, { waitUntil: "networkidle0", timeout: 90000 });
+    await p.goto(url("pesquisa/ver/cena.html") + "?t=" + t + "&f=" + (process.argv[3] || 0), { waitUntil: "networkidle0", timeout: 90000 });
     await p.waitForFunction("window.pronto === true", { timeout: 90000 });
     await new Promise(r => setTimeout(r, 800));
-    await p.screenshot({ path: `pesquisa/ver/cena-${t}.png` });
+    await p.screenshot({ path: `pesquisa/ver/cena-${t}-f${process.argv[3] || 0}.png` });
     console.log("t", t, "ms", Date.now() - t0);
   }
   console.log("erros", erros);
