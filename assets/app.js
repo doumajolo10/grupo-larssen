@@ -348,9 +348,9 @@
         carregador.style.setProperty("--p", pC.toFixed(3)); if (kmC) kmC.textContent = Math.round(pC * 25);
         if (pronto && pC >= 1) fecharCarregador();
       }, 50);
-      setTimeout(fecharCarregador, 3500); // nunca segura a página mais que isso
+      setTimeout(fecharCarregador, 5000); // nunca segura a página mais que isso
     }
-    setTimeout(function () { pronto = true; }, 3000);
+    setTimeout(function () { pronto = true; }, 4500);
     var revelarHero = function () {
       if (!temGsap) return;
       gsap.from(".hero3d h1 .l > span", { yPercent: 110, duration: 1.2, ease: "expo.out", stagger: 0.09 });
@@ -386,7 +386,7 @@
           var f = Math.min(1, Math.max(0, (p - 0.86) / 0.14)); f = f * f * (3 - 2 * f); cena.definirFim(f); hero.classList.toggle("dissolvendo", f > 0.35);
           if (!cena.temDissolucao) canvas.style.opacity = (1 - f).toFixed(3); };
         window.addEventListener("scroll", sync, { passive: true }); sync();
-        pronto = true;
+        if (cena.pronto) cena.pronto.then(function () { pronto = true; }); else pronto = true;
       }).catch(function (err) { console.warn("3D indisponível", err); hero.classList.add("sem3d"); pronto = true; });
     }
     atualizarLegenda(0);

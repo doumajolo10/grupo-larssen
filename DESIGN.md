@@ -379,3 +379,10 @@ Raised plates with condensed type, confident and tactile.
 - **Dissolve to paper:** the last 14% of the hero scroll dissolves the scene into the page ground (#F3F4F1) through fbm noise with a thin signage-green edge; signage, caption and pins fade with it. Mobile (no post chain) fades the canvas instead.
 - **Section headings with km post:** `.cabeca.com-marco` places a marco de km beside the h2 (never above it). Use only where the km is real route information.
 - **Catalog as romaneio:** products are grouped by line (`.grupo-cat` with marco, h2, description and item count) and shown by default as a ruled ledger (`.vista-lista`: photo, name and use, bitolas, carimbos, species and add button per row). A "Fotos" toggle switches to the ticket grid (`.vista-grade`); the choice is remembered per visitor. Filters hide empty groups. On phones the filter chips are a single swipeable strip.
+
+## 3D scene v3 (2026-10-15, realism round)
+
+- **Materials:** CC0 Poly Haven sources in `assets/3d` (see `ORIGEM.txt`): sky HDRI `kloofendal_48d_partly_cloudy_puresky` for image-based lighting and background, terrain splat (aerial grass, forest leaves, red laterite soil, sawdust) driven by a per-vertex `pesos` attribute, textured asphalt with yellow centre and white edge lines, corrugated metal roofs, plaster walls, bark logs and plank bundles.
+- **Trees:** photographic sprites (pinus, eucalipto, araucária, nativa) generated in Google Gemini on magenta, keyed and packed into `arvores.webp`; rendered as instanced cylindrical billboards with wind sway, alpha-tested shadows and per-instance tint.
+- **Brand in scene:** green "GRUPO LARSSEN" road sign at the yard entrance (logo drawn from `assets/logos/grupo.svg`), boiler chimney with smoke.
+- **Post chain (desktop):** soft bloom (threshold above 1), output, final pass with miniature tilt-shift blur at top and bottom, grading, vignette, grain and the dissolve to paper. Mobile skips normal maps and post.
