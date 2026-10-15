@@ -27,7 +27,7 @@ export function iniciarCena(canvas, opcoes = {}) {
   const NEBLINA = new THREE.Color("#e4e8e2");
   const cena = new THREE.Scene();
   cena.background = NEBLINA.clone();
-  cena.fog = new THREE.Fog(NEBLINA, 120, 420);
+  cena.fog = new THREE.Fog(NEBLINA, 170, 560);
 
   const camera = new THREE.PerspectiveCamera(42, 1, 0.5, 900);
 
@@ -52,7 +52,7 @@ export function iniciarCena(canvas, opcoes = {}) {
 
   // ---------- estrada (curva) ----------
   const estradaPts = [
-    [-10, -205], [-18, -150], [-4, -100], [18, -62], [14, -30], [-2, 0], [-8, 34], [8, 70], [40, 102], [60, 140], [70, 205],
+    [-6, -262], [-12, -205], [-18, -150], [-4, -100], [18, -62], [14, -30], [-2, 0], [-8, 34], [8, 70], [40, 102], [60, 140], [70, 205],
   ].map(([x, z]) => new THREE.Vector3(x, 0, z));
   const estrada = new THREE.CatmullRomCurve3(estradaPts, false, "catmullrom", 0.4);
   const amostras = estrada.getSpacedPoints(400);
@@ -290,8 +290,8 @@ export function iniciarCena(canvas, opcoes = {}) {
   // ---------- marcos (km) que viram etiquetas HTML ----------
   const marcos = [
     { id: "florestal", km: 0, pos: new THREE.Vector3(pH.x + 16, alturaFinal(pH.x + 16, pH.z) + 6, pH.z) },
-    { id: "madeireira", km: 2, pos: new THREE.Vector3(-46, ALT_PATIO + 15, -26) },
-    { id: "tratadas", km: 9, pos: new THREE.Vector3(-21, ALT_PATIO + 9, -14) },
+    { id: "madeireira", km: 2, pos: new THREE.Vector3(-62, ALT_PATIO + 12, -4) },
+    { id: "tratadas", km: 9, pos: new THREE.Vector3(-21, ALT_PATIO + 7, -20) },
     { id: "transportes", km: 21, pos: (() => { const p = estrada.getPointAt(0.72); return new THREE.Vector3(p.x, alturaFinal(p.x, p.z) + 7, p.z); })() },
     { id: "escavacoes", km: 25, pos: new THREE.Vector3(OBRA.x - 6, alturaFinal(OBRA.x, OBRA.z) + 9, OBRA.z - 4) },
   ];

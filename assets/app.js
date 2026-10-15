@@ -8,7 +8,7 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || doc).querySelectorAll(s)); };
   var temGsap = !!(window.gsap && window.ScrollTrigger);
   if (temGsap) gsap.registerPlugin(ScrollTrigger);
-  if (!reduz) html.classList.add("anima");
+  html.classList.add("anima"); if (reduz) html.classList.add("calmo");
 
   // ---------- rolagem suave ----------
   var lenis = null;
@@ -76,7 +76,6 @@
       if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
       var href = a.getAttribute("href");
       if (!href || href.charAt(0) === "#" || a.target === "_blank" || /^(https?:|mailto:|tel:|whatsapp:)/.test(href) || a.hasAttribute("download")) return;
-      if (reduz) return;
       e.preventDefault();
       cortina.classList.remove("sai"); cortina.classList.add("entra");
       sessionStorageSet("larssen-cortina", "1");
@@ -208,7 +207,7 @@
   }
 
   // ---------- revelações ----------
-  if (!reduz && "IntersectionObserver" in window) {
+  if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("on"); io.unobserve(en.target); } }); }, { rootMargin: "0px 0px -8% 0px", threshold: 0.01 });
     $$(".revela, .mascara").forEach(function (el) { io.observe(el); });
   }
@@ -216,7 +215,7 @@
   // ---------- frase que acende ----------
   $$("[data-acende]").forEach(function (fr) {
     var partes = $$(".p", fr);
-    if (reduz || !temGsap) { partes.forEach(function (p) { p.classList.add("on"); }); return; }
+    if (!temGsap) { partes.forEach(function (p) { p.classList.add("on"); }); return; }
     ScrollTrigger.create({ trigger: fr, start: "top 78%", end: "bottom 42%", onUpdate: function (st) { var n = Math.round(st.progress * partes.length); partes.forEach(function (p, i) { p.classList.toggle("on", i < n); }); } });
   });
 
@@ -225,7 +224,7 @@
     var fim = +el.getAttribute("data-conta"), suf = el.getAttribute("data-suf") || "", milhar = fim >= 1000;
     var fmt = function (v) { var s = Math.round(v).toString(); return milhar ? s.replace(/\B(?=(\d{3})+(?!\d))/g, ".") : s; };
     el.textContent = fmt(fim) + suf; // valor final já visível sem animação
-    if (reduz || !("IntersectionObserver" in window)) return;
+    if (!("IntersectionObserver" in window)) return;
     var o = new IntersectionObserver(function (es) {
       if (!es[0].isIntersecting) return; o.disconnect();
       var t0 = performance.now(), d = 1600;
@@ -244,12 +243,12 @@
 
   // ---------- rota horizontal ----------
   var rotaH = $("[data-rota-h]");
-  if (rotaH && temGsap && !reduz && window.innerWidth > 760) {
+  if (rotaH && temGsap && window.innerWidth > 760) {
     var pista = $(".pista", rotaH), cam = $(".caminhao-h", rotaH), estradaH = $(".estrada-h", rotaH);
     var dist = function () { return Math.max(0, pista.scrollWidth - window.innerWidth); };
     var tl = gsap.to(pista, { x: function () { return -dist(); }, ease: "none", scrollTrigger: { trigger: rotaH, start: "top top", end: function () { return "+=" + dist(); }, pin: true, scrub: 0.6, invalidateOnRefresh: true, anticipatePin: 1,
       onUpdate: function (st) { if (cam) cam.style.setProperty("--x", (st.progress * (estradaH.clientWidth - 90)).toFixed(1) + "px"); } } });
-    $$(".parada .foto img", rotaH).forEach(function (img) { gsap.fromTo(img, { xPercent: 6 }, { xPercent: -6, ease: "none", scrollTrigger: { trigger: img, containerAnimation: tl, start: "left right", end: "right left", scrub: true } }); });
+    if (!reduz) $$(".parada .foto img", rotaH).forEach(function (img) { gsap.fromTo(img, { xPercent: 6 }, { xPercent: -6, ease: "none", scrollTrigger: { trigger: img, containerAnimation: tl, start: "left right", end: "right left", scrub: true } }); });
   }
 
   // ---------- autoclave: estações ----------
@@ -279,10 +278,10 @@
   var mapa = $("[data-mapa]");
   if (mapa) {
     var ufs = $$(".uf.atende", mapa), rotas = $$(".rota", mapa);
-    rotas.forEach(function (r) { var L = r.getTotalLength(); r.style.strokeDasharray = "6 6"; r.style.strokeDashoffset = reduz ? 0 : L; r.dataset.l = L; });
+    rotas.forEach(function (r) { var L = r.getTotalLength(); r.style.strokeDasharray = "6 6"; r.style.strokeDashoffset = L; r.dataset.l = L; });
     var acender = function () {
-      ufs.forEach(function (u, i) { setTimeout(function () { u.classList.add("on"); }, reduz ? 0 : 160 * i); });
-      rotas.forEach(function (r, i) { if (reduz) return; r.animate([{ strokeDashoffset: r.dataset.l }, { strokeDashoffset: 0 }], { duration: 1400, delay: 160 * i, easing: "cubic-bezier(.22,1,.36,1)", fill: "forwards" }); });
+      ufs.forEach(function (u, i) { setTimeout(function () { u.classList.add("on"); }, 160 * i); });
+      rotas.forEach(function (r, i) { r.animate([{ strokeDashoffset: r.dataset.l }, { strokeDashoffset: 0 }], { duration: 1400, delay: 160 * i, easing: "cubic-bezier(.22,1,.36,1)", fill: "forwards" }); });
     };
     if ("IntersectionObserver" in window) { var om = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { om.disconnect(); acender(); } }, { threshold: 0.3 }); om.observe(mapa); } else acender();
   }
@@ -339,7 +338,7 @@
     }
     setTimeout(function () { pronto = true; }, 3000);
     var revelarHero = function () {
-      if (!temGsap || reduz) return;
+      if (!temGsap) return;
       gsap.from(".hero3d h1 .l > span", { yPercent: 110, duration: 1.2, ease: "expo.out", stagger: 0.09 });
       gsap.from(".hero3d .texto p, .hero3d .acoes", { y: 24, opacity: 0, duration: 1, ease: "expo.out", delay: 0.35, stagger: 0.08 });
       gsap.from(".placa-saidas", { x: 40, opacity: 0, duration: 1.1, ease: "expo.out", delay: 0.4 });
@@ -352,7 +351,7 @@
       if (i === legendaAtual) return; legendaAtual = i;
       var c = CAPS[i];
       legenda.innerHTML = '<span class="marco">KM<b>' + c.km + '</b></span><h3>' + c.t + '</h3><p>' + c.d + '</p>';
-      if (temGsap && !reduz) gsap.fromTo(legenda.children, { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "expo.out", stagger: 0.05 });
+      if (temGsap) gsap.fromTo(legenda.children, { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "expo.out", stagger: 0.05 });
       $$(".placa-saidas a").forEach(function (a) { a.classList.toggle("ativa", a.getAttribute("data-id") === c.id); });
     };
     var mapaPinos = {};

@@ -4,7 +4,7 @@ const fs = require("fs"), path = require("path"), { execFileSync } = require("ch
 const { CONTATO, EMPRESAS, LINHAS, PRODUTOS, ETAPAS, AUTOCLAVE, ESTADOS } = require("./dados.js");
 const IC = require("./icones.js");
 const RAIZ = path.join(__dirname, "..");
-const SITE = "https://grupolarssen.vercel.app"; // trocar pelo domínio final
+const SITE = "https://grupo-larssen.vercel.app"; // trocar pelo domínio final
 const V = Date.now().toString(36); // versão dos assets (cache)
 
 // ---------- utilidades ----------
@@ -151,12 +151,11 @@ function ticket(p, { carregar = "lazy" } = {}) {
   <div class="foto">${img(p.foto, p.nome, { sizes: "(min-width:1100px) 380px, (min-width:700px) 45vw, 92vw", carregar })}</div>
   <div class="serrilha" aria-hidden="true"></div>
   <div class="corpo">
-    <div class="linha-cod"><span>${esc(linha(p.linha).nome)}</span><span>${esc(e.curto)}</span></div>
     <h3><a href="produto-${p.id}.html">${esc(p.nome)}</a></h3>
     <p class="uso">${esc(p.uso)}</p>
     <ul class="bitolas">${p.bitolas.slice(0, 3).map(b => `<li>${esc(b)}</li>`).join("")}</ul>
     <div class="carimbos" aria-label="Etapas por onde passa">${p.carimbos.map(c => `<span class="carimbo c-${c}">${nomeCarimbo[c]}</span>`).join("")}</div>
-    <div class="pe"><span class="madeira">${esc(p.madeira)}</span>${botaoAdd(p)}</div>
+    <div class="pe"><span class="madeira">${esc(p.madeira)}<small>${esc(linha(p.linha).nome)} · ${esc(e.curto)}</small></span>${botaoAdd(p)}</div>
   </div>
 </article>`;
 }
@@ -235,7 +234,7 @@ const paginas = [];
   ];
   const saidasPlaca = EMPRESAS.map(e => `<a href="${paginaEmp[e.id]}" data-id="${e.id}">${ICONE(e.id)}<span>${esc(e.curto === "Madeiras Tratadas" ? "Tratadas" : e.curto)}</span><span class="k">KM ${e.km}</span></a>`).join("");
   const pinos = EMPRESAS.map(e => `<a class="pino" href="${paginaEmp[e.id]}" data-id="${e.id}" aria-label="${esc(e.nome)}, km ${e.km}"><span class="marco">KM<b>${e.km}</b><span>${esc(e.curto)}</span></span><i></i></a>`).join("");
-  const frase = [["Em"], ["55 anos", 1], ["a"], ["Larssen"], ["juntou"], ["500 hectares", 1], ["de"], ["floresta"], ["plantada,"], ["uma"], ["serraria"], ["de"], ["100 m³", 1], ["por"], ["dia,"], ["autoclave,"], ["frota"], ["própria"], ["e"], ["máquinas"], ["de"], ["obra."], ["Tudo"], ["na"], ["mesma"], ["estrada."]]
+  const frase = [["Desde"], ["1970", 1], ["a"], ["Larssen"], ["juntou"], ["500 hectares", 1], ["de"], ["floresta"], ["plantada,"], ["uma"], ["serraria"], ["de"], ["100 m³", 1], ["por"], ["dia,"], ["autoclave,"], ["frota"], ["própria"], ["e"], ["máquinas"], ["de"], ["obra."], ["Tudo"], ["na"], ["mesma"], ["estrada."]]
     .map(([t, d]) => `<span class="p${d ? " dado" : ""}">${t}</span>`).join(" ");
   const paradas = ETAPAS.map(et => {
     const e = et.empresa ? emp(et.empresa) : null;
@@ -266,6 +265,7 @@ const paginas = [];
     <div class="texto">
       <h1><span class="l"><span>Da floresta</span></span><span class="l"><span>à entrega.</span></span></h1>
       <p>Cinco empresas na mesma rota: floresta plantada, serraria, madeira tratada em autoclave, transporte e obra. Em Três Passos/RS, desde 1970.</p>
+      <nav class="saidas-m" aria-label="Empresas do grupo">${EMPRESAS.map(e => `<a href="${paginaEmp[e.id]}" class="placa">${ICONE(e.id)}<span>${esc(e.curto === "Madeiras Tratadas" ? "Tratadas" : e.curto)}</span></a>`).join("")}</nav>
       <div class="acoes"><a class="botao" href="produtos.html">${IC.romaneio} Montar orçamento</a><a class="botao branco" href="${zap("Olá, Grupo Larssen! Quero falar com um vendedor.")}" target="_blank" rel="noopener">${IC.zap} WhatsApp</a></div>
     </div>
     <nav class="placa placa-saidas" aria-label="Empresas do grupo"><div class="titulo"><span>Saídas</span><span>Grupo Larssen</span></div>${saidasPlaca}</nav>
@@ -274,12 +274,12 @@ const paginas = [];
   </div>
 </section>
 
-<section class="bloco" data-saida="55 anos">
+<section class="bloco" data-saida="Desde 1970">
   <div class="miolo frase-grade">
     <div>
     <p class="frase-grande" data-acende>${frase}</p>
     <div class="dados-linha revela">
-      <div><b class="num" data-conta="55">55</b><span>anos de história</span></div>
+      <div><b class="num">1970</b><span>início da serraria</span></div>
       <div><b class="num" data-conta="500">500</b><span>hectares reflorestados</span></div>
       <div><b class="num" data-conta="47000" data-suf=" m²">47.000 m²</b><span>de parque industrial</span></div>
       <div><b class="num" data-conta="5">5</b><span>empresas no grupo</span></div>
@@ -291,7 +291,7 @@ const paginas = [];
 
 <section class="rota-h" data-rota-h data-saida="A rota">
   <div class="miolo cabeca cabeca-r"><h2>A rota da madeira, quilômetro por quilômetro.</h2><p class="lead">Cada etapa acontece dentro do grupo. Por isso a gente responde pelo produto do plantio até a sua obra.</p></div>
-  <div class="pista">${paradas}</div>
+  <div class="janela"><div class="pista">${paradas}</div></div>
   <div class="estrada-h" aria-hidden="true"><span class="caminhao-h">${IC.caminhaoLado}</span></div>
 </section>
 
@@ -356,7 +356,6 @@ for (const e of EMPRESAS) {
 <section class="capa" data-saida="${esc(e.curto)}">
   ${img(e.foto, e.nome, { carregar: "eager", attrs: 'data-parallax="10" fetchpriority="high"' })}
   <div class="miolo">
-    <nav class="migalhas" aria-label="Você está em"><a href="index.html">Grupo Larssen</a><span>/</span><span>Empresas</span><span>/</span><span>${esc(e.curto)}</span></nav>
     <div class="placa placa-cab">${ICONE(e.id)}<span>Saída · KM ${e.km}</span></div><br>
     ${marca}
     <h1>${esc(e.nome)}</h1>
@@ -365,7 +364,7 @@ for (const e of EMPRESAS) {
 </section>
 <section class="bloco"><div class="miolo grade-2"><div class="revela"><h2>${e.desde ? `Desde ${e.desde}.` : "Parte da rota."}</h2></div><div class="revela"><p class="lead">${esc(e.texto)}</p>${nums}</div></div></section>
 ${servBloco}${auto}${linhasBloco}${galeria}
-<section class="bloco" style="background:var(--concreto)"><div class="miolo"><div class="cabeca"><h2>Outras saídas da rota</h2></div><div class="grade-romaneio">${outras.map(o => `<a class="ticket revela" href="${paginaEmp[o.id]}" style="text-decoration:none"><div class="foto">${img(o.foto, o.nome, { sizes: "(min-width:1100px) 300px, 45vw" })}</div><div class="serrilha" aria-hidden="true"></div><div class="corpo"><div class="linha-cod"><span>KM ${o.km}</span><span>Saída</span></div><h3>${esc(o.nome)}</h3><p class="uso">${esc(o.frase)}</p><span class="link-seta" style="margin-top:auto">Ir para ${esc(o.curto)} ${IC.seta}</span></div></a>`).join("")}</div></div></section>
+<section class="bloco" style="background:var(--concreto)"><div class="miolo"><div class="cabeca"><h2>Outras saídas da rota</h2></div><div class="grade-romaneio">${outras.map(o => `<a class="ticket revela" href="${paginaEmp[o.id]}" style="text-decoration:none"><div class="foto">${img(o.foto, o.nome, { sizes: "(min-width:1100px) 300px, 45vw" })}<span class="marco" style="position:absolute;left:12px;top:12px">KM<b>${o.km}</b></span></div><div class="serrilha" aria-hidden="true"></div><div class="corpo"><h3>${esc(o.nome)}</h3><p class="uso">${esc(o.frase)}</p><span class="link-seta" style="margin-top:auto">Ir para ${esc(o.curto)} ${IC.seta}</span></div></a>`).join("")}</div></div></section>
 ${chamadaFinal(e.servicos && !e.linhas ? `Fale com a ${esc(e.curto === "Transportes" ? "Log Larssen" : "Larssen " + e.curto)} pelo WhatsApp.` : undefined)}`;
   paginas.push(pagina({ arquivo: paginaEmp[e.id], titulo: `${e.nome} · Grupo Larssen`, descricao: `${e.frase} ${e.texto}`.slice(0, 158), corpo, kmIni: e.km, kmFim: e.km + 1, imagem: e.foto }));
 }
@@ -404,7 +403,6 @@ for (const p of PRODUTOS) {
     </div>
     <article class="ticket">
       <div class="corpo" style="padding-top:18px">
-        <div class="linha-cod"><span>${esc(l.nome)}</span><span>${esc(e.nome)}</span></div>
         <h2 style="font-size:34px">${esc(p.nome)}</h2>
         <table class="tabela-bitolas"><tbody>
           <tr><th scope="row">Uso</th><td>${esc(p.uso)}</td></tr>
@@ -453,13 +451,13 @@ ${chamadaFinal()}`;
     ["2025", "55 anos", "O grupo completa 55 anos construindo histórias, com floresta, serraria, tratamento, transporte e escavações."],
   ];
   const corpo = `
-<section class="capa">${img("madeireiralarssen_2019_08_empresa3.jpg", "Parque industrial da Madeireira Larssen", { carregar: "eager", attrs: 'data-parallax="10" fetchpriority="high"' })}<div class="miolo"><nav class="migalhas" aria-label="Você está em"><a href="index.html">Grupo Larssen</a><span>/</span><span>Sobre</span></nav><h1>55 anos na mesma estrada.</h1><p>Um grupo familiar de Três Passos/RS que cresceu acompanhando a madeira: do plantio à obra.</p></div></section>
+<section class="capa">${img("madeireiralarssen_2019_08_empresa3.jpg", "Parque industrial da Madeireira Larssen", { carregar: "eager", attrs: 'data-parallax="10" fetchpriority="high"' })}<div class="miolo"><nav class="migalhas" aria-label="Você está em"><a href="index.html">Grupo Larssen</a><span>/</span><span>Sobre</span></nav><h1>Desde 1970 na mesma estrada.</h1><p>Um grupo familiar de Três Passos/RS que cresceu acompanhando a madeira: do plantio à obra.</p></div></section>
 <section class="bloco" data-saida="História"><div class="miolo grade-2"><div class="revela"><h2>Linha do tempo</h2><p class="lead" style="margin-top:18px">A Larssen Florestal e a Larssen Escavações completam a rota: uma começa antes da serraria, a outra termina na obra.</p></div><div class="tempo revela">${marcos.map(([a, t, d]) => `<div class="marco-t"><span class="ano num">${a}</span><div><h3>${t}</h3><p>${d}</p></div></div>`).join("")}</div></div></section>
 <section class="bloco" style="background:var(--concreto)" data-saida="Números"><div class="miolo"><div class="cabeca"><h2>Estrutura</h2><p class="lead">Ao longo dos anos o grupo ajustou processos e estrutura para cobrir todas as fases da produção e da logística.</p></div><div class="numeros revela"><div><b class="num" data-conta="47000" data-suf=" m²">47.000 m²</b><span>de área total</span></div><div><b class="num" data-conta="11000" data-suf=" m²">11.000 m²</b><span>de área coberta</span></div><div><b class="num" data-conta="100" data-suf=" m³">100 m³</b><span>de produção por dia</span></div><div><b class="num" data-conta="50">50</b><span>colaboradores na madeireira</span></div><div><b class="num" data-conta="500" data-suf=" ha">500 ha</b><span>de reflorestamento</span></div></div></div></section>
 <section class="bloco" data-saida="Missão"><div class="miolo"><div class="grade-2"><div class="revela"><h3 style="font-size:32px;margin-bottom:12px">Missão</h3><p>Oferecer produtos e serviços com qualidade e segurança, com responsabilidade social e ambiental, atendendo com excelência aos nossos clientes.</p><h3 style="font-size:32px;margin:28px 0 12px">Visão</h3><p>Ser referência no setor da transformação de madeiras, fornecendo produtos de alta qualidade, com ética, transparência e competência, buscando aprimoramento contínuo junto das certificações ambientais.</p></div><div class="revela"><h3 style="font-size:32px;margin-bottom:12px">Valores</h3>${listaServicos([["Clientes", "Atenção às solicitações e necessidades de clientes e consumidores."], ["Fábrica", "Busca pela excelência nos produtos."], ["Marca", "Desenvolvimento constante do negócio e valorização da marca."], ["Pessoas", "Saúde e segurança dos colaboradores, transparência nas relações, desenvolvimento pessoal e profissional, criatividade e participação de todos."], ["Parceiros", "Trabalho junto a Ibama, Prefeitura e Sindicato, atendendo todas as normas."]])}</div></div></div></section>
 <section class="bloco" style="padding-top:0"><div class="miolo"><div class="galeria">${["madeireiralarssen_2019_08_aereas.jpg", "madeireiralarssen_2019_08_galpao.jpg", "larssenmadeirastratadas_2020_01_madelarssen_04.jpg", "madeireiralarssen_2020_10_estrutura.jpg"].map(f => `<a href="img/g/${base(f)}.webp" class="mascara">${img(f, "Estrutura do Grupo Larssen", { sizes: "(min-width:700px) 58vw, 92vw" })}</a>`).join("")}</div></div></section>
 ${chamadaFinal()}`;
-  paginas.push(pagina({ arquivo: "sobre.html", titulo: "Sobre o Grupo Larssen · 55 anos · Três Passos/RS", descricao: "História, estrutura, missão, visão e valores do Grupo Larssen: 55 anos de madeira em Três Passos/RS.", corpo, imagem: "madeireiralarssen_2019_08_empresa3.jpg" }));
+  paginas.push(pagina({ arquivo: "sobre.html", titulo: "Sobre o Grupo Larssen · Desde 1970 · Três Passos/RS", descricao: "História, estrutura, missão, visão e valores do Grupo Larssen: madeira em Três Passos/RS desde 1970.", corpo, imagem: "madeireiralarssen_2019_08_empresa3.jpg" }));
 }
 
 // ----- CONTATO -----
@@ -499,7 +497,7 @@ ${chamadaFinal()}`;
   const corpo = `
 <section class="capa clara"><div class="miolo"><nav class="migalhas" aria-label="Você está em"><a href="index.html">Grupo Larssen</a><span>/</span><span>Romaneio</span></nav><h1>Seu romaneio de orçamento.</h1><p>Confira os itens, ajuste as quantidades e envie. Um vendedor responde com preço e frete.</p></div></section>
 <section class="bloco" style="padding-top:40px" data-saida="Romaneio"><div class="miolo contato-grade">
-  <div class="ticket" style="align-self:start"><div class="corpo" style="padding-top:12px"><div class="linha-cod"><span>Romaneio</span><span>Grupo Larssen</span></div><div data-itens-romaneio></div></div></div>
+  <div class="ticket" style="align-self:start"><div class="corpo" style="padding-top:12px"><div data-itens-romaneio></div></div></div>
   <form class="form-c" data-form-romaneio novalidate>
     <h2 style="font-size:36px">Para quem é o orçamento?</h2>
     <div class="campo"><label for="r-nome">Seu nome</label><input id="r-nome" name="nome" autocomplete="name" required></div>
