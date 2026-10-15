@@ -88,7 +88,7 @@ const checa = (cond, nome) => { if (cond) { ok++; console.log("  ok   " + nome);
   await p.click(".gaveta [data-enviar-romaneio]"); await espera(400);
   const link = await p.evaluate(() => window.__abertos[0] || "");
   const msg = decodeURIComponent((link.split("text=")[1] || ""));
-  checa(link.startsWith("https://wa.me/555535221635"), "abre WhatsApp do grupo (55 3522-1635)");
+  checa(link.startsWith("https://wa.me/5555936197019"), "abre WhatsApp de vendas (55 93619-7019)");
   checa(msg.includes("Dormentes ferroviários tratados") && msg.includes("3 unidades") && msg.includes("Pergolados") && msg.includes("Ijuí/RS") && msg.includes("Teste da Silva"), "mensagem traz itens, quantidades, nome e cidade");
   await p.click('.gaveta .item-r[data-id="pergolados"] .remover'); await espera(300);
   checa(await p.evaluate(() => document.querySelector(".bt-romaneio .conta").textContent === "1"), "remover item atualiza o contador");

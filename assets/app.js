@@ -324,7 +324,7 @@
     er.textContent = "";
     var emp = fc.querySelector("[name=empresa]").value;
     var msg = "Olá, Grupo Larssen!" + (emp ? " Assunto: " + emp + "." : "") + "\n" + campos[2].value.trim() + "\n\nNome: " + campos[0].value.trim() + "\nTelefone: " + campos[1].value.trim();
-    window.open("https://wa.me/" + (html.getAttribute("data-whats") || "555535221635") + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
+    window.open("https://wa.me/" + (html.getAttribute("data-whats") || "5555936197019") + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
   });
 
   // ---------- HERO 3D (home) ----------

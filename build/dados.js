@@ -4,7 +4,8 @@
 const CONTATO = {
   telefone: "(55) 3522-1635",
   telLink: "tel:+555535221635",
-  whats: "555535221635",
+  whats: "5555936197019",
+  whatsTexto: "(55) 93619-7019",
   emails: { madeireira: "contato@madeireiralarssen.com.br", tratadas: "contato@madelarssen.com.br" },
   endereco: "Rua Renato José Oppermann, 210",
   bairro: "Distrito Industrial",

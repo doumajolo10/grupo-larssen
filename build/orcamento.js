@@ -3,7 +3,7 @@
 (function () {
   "use strict";
   var CHAVE = "larssen-orcamento-v1";
-  var WHATS = document.documentElement.getAttribute("data-whats") || "555535221635";
+  var WHATS = document.documentElement.getAttribute("data-whats") || "5555936197019";
   var mem = [];
   function ler() {
     try { var t = localStorage.getItem(CHAVE); mem = t ? JSON.parse(t) : mem; } catch (e) {}

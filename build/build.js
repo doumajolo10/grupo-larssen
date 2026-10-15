@@ -56,7 +56,7 @@ function cabecalho(atual) {
   <hr>
   ${EMPRESAS.map(e => `<a class="saida-m" href="${paginaEmp[e.id]}">${ICONE(e.id)} ${esc(e.nome)}</a>`).join("")}
   <hr>
-  <a class="saida-m" href="${zap("Olá, Grupo Larssen!")}" target="_blank" rel="noopener">${IC.zap} ${CONTATO.telefone}</a>
+  <a class="saida-m" href="${zap("Olá, Grupo Larssen!")}" target="_blank" rel="noopener">${IC.zap} ${CONTATO.whatsTexto}</a>
 </div>
 <div class="trilho" aria-hidden="true"><div class="asfalto"></div><div class="faixa"></div><div class="feito"></div><div class="veiculo">${IC.caminhao}</div><div class="km"><span class="marco">KM<b class="num">0,0</b></span><small></small></div></div>
 <div class="trilho-movel" aria-hidden="true"><i></i></div>`;
@@ -90,7 +90,7 @@ function rodape() {
       <div><h2 class="tit-r">Empresas</h2><ul>${EMPRESAS.map(e => `<li><a href="${paginaEmp[e.id]}">${ICONE(e.id)}${esc(e.nome)}</a></li>`).join("")}</ul></div>
       <div><h2 class="tit-r">Navegue</h2><ul><li><a href="produtos.html">Catálogo de produtos</a></li><li><a href="processo.html">Do talhão à entrega</a></li><li><a href="sustentabilidade.html">Sustentabilidade</a></li><li><a href="sobre.html">Sobre o grupo</a></li><li><a href="orcamento.html">Romaneio de orçamento</a></li><li><a href="contato.html">Contato</a></li></ul></div>
       <div><h2 class="tit-r">Fale com a gente</h2><ul>
-        <li><a href="${zap("Olá, Grupo Larssen!")}" target="_blank" rel="noopener">${IC.zap}${CONTATO.telefone}</a></li>
+        <li><a href="${zap("Olá, Grupo Larssen!")}" target="_blank" rel="noopener">${IC.zap}${CONTATO.whatsTexto}</a></li>
         <li><a href="mailto:${CONTATO.emails.madeireira}">${IC.email}${CONTATO.emails.madeireira}</a></li>
         <li><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("Larssen Madeiras Tratadas, " + CONTATO.endereco + ", Três Passos, RS")}" target="_blank" rel="noopener">${IC.pino}Atendimento: ${CONTATO.endereco}, ${CONTATO.cidade}</a></li>
         <li><a href="${CONTATO.instagram.replace("madeireiralarssen", "grupolarssen")}" target="_blank" rel="noopener">${IC.insta}@grupolarssen</a></li>
@@ -465,7 +465,7 @@ ${chamadaFinal()}`;
 <section class="bloco" style="padding-top:40px" data-saida="Contato"><div class="miolo contato-grade">
   <div>
     <div class="canais">
-      <a class="canal" href="${zap("Olá, Grupo Larssen!")}" target="_blank" rel="noopener"><span class="ic">${IC.zap}</span><span><b>WhatsApp e telefone</b><span>${CONTATO.telefone}</span></span></a>
+      <a class="canal" href="${zap("Olá, Grupo Larssen!")}" target="_blank" rel="noopener"><span class="ic">${IC.zap}</span><span><b>WhatsApp de vendas</b><span>${CONTATO.whatsTexto}</span></span></a>
       <a class="canal" href="${CONTATO.telLink}"><span class="ic">${IC.tel}</span><span><b>Ligar</b><span>${CONTATO.telefone}</span></span></a>
       <a class="canal" href="mailto:${CONTATO.emails.madeireira}"><span class="ic">${IC.email}</span><span><b>Madeireira</b><span>${CONTATO.emails.madeireira}</span></span></a>
       <a class="canal" href="mailto:${CONTATO.emails.tratadas}"><span class="ic">${IC.email}</span><span><b>Madeiras Tratadas</b><span>${CONTATO.emails.tratadas}</span></span></a>
@@ -485,7 +485,7 @@ ${chamadaFinal()}`;
     <div class="mapa-emb"><iframe title="Mapa: ${CONTATO.endereco}, Três Passos/RS" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=${mapaQ}&z=15&output=embed"></iframe></div>
   </div>
 </div></section>`;
-  paginas.push(pagina({ arquivo: "contato.html", titulo: "Contato · Grupo Larssen · Três Passos/RS", descricao: `WhatsApp ${CONTATO.telefone}, e-mail e endereço do Grupo Larssen em Três Passos/RS.`, corpo }));
+  paginas.push(pagina({ arquivo: "contato.html", titulo: "Contato · Grupo Larssen · Três Passos/RS", descricao: `WhatsApp ${CONTATO.whatsTexto}, telefone ${CONTATO.telefone}, e-mail e endereço do Grupo Larssen em Três Passos/RS.`, corpo }));
 }
 
 // ----- ROMANEIO (página) -----
