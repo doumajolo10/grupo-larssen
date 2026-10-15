@@ -675,3 +675,12 @@ a.canal:hover { transform: translateY(-2px); box-shadow: var(--sombra-baixa); }
   .filtros .chip { flex: none; }
   .filtros .busca { flex: 0 0 240px; }
 }
+
+/* abertura da home (sem 3D) */
+.abertura { padding-top: clamp(130px, 16vh, 190px); }
+.titulo-abertura { font-size: clamp(3rem, 6.6vw, 5.6rem); margin-bottom: 26px; }
+.abertura .frase-grande { font-size: clamp(1.6rem, 2.8vw, 2.5rem); max-width: 26ch; color: var(--tinta-2); }
+.abertura .frase-grande .p { color: var(--tinta); }
+.abertura .frase-grande .p.dado { color: var(--verde); }
+.acoes-abertura { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+.abertura .frase-foto { aspect-ratio: 4 / 4.6; }

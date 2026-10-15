@@ -92,7 +92,7 @@ function rodape() {
       <div><h2 class="tit-r">Fale com a gente</h2><ul>
         <li><a href="${zap("Olá, Grupo Larssen!")}" target="_blank" rel="noopener">${IC.zap}${CONTATO.telefone}</a></li>
         <li><a href="mailto:${CONTATO.emails.madeireira}">${IC.email}${CONTATO.emails.madeireira}</a></li>
-        <li><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONTATO.endereco + ", Três Passos, RS")}" target="_blank" rel="noopener">${IC.pino}${CONTATO.endereco}, ${CONTATO.cidade}</a></li>
+        <li><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("Larssen Madeiras Tratadas, " + CONTATO.endereco + ", Três Passos, RS")}" target="_blank" rel="noopener">${IC.pino}Atendimento: ${CONTATO.endereco}, ${CONTATO.cidade}</a></li>
         <li><a href="${CONTATO.instagram.replace("madeireiralarssen", "grupolarssen")}" target="_blank" rel="noopener">${IC.insta}@grupolarssen</a></li>
         <li><a href="${CONTATO.facebook}" target="_blank" rel="noopener">${IC.face}/larssenmadeireira</a></li>
       </ul></div>
@@ -250,7 +250,7 @@ const paginas = [];
   const saidasPlaca = EMPRESAS.map(e => `<a href="${paginaEmp[e.id]}" data-id="${e.id}">${ICONE(e.id)}<span>${esc(e.curto === "Madeiras Tratadas" ? "Tratadas" : e.curto)}</span><span class="k">KM ${e.km}</span></a>`).join("");
   const pinos = EMPRESAS.map(e => `<a class="pino" href="${paginaEmp[e.id]}" data-id="${e.id}" aria-label="${esc(e.nome)}, km ${e.km}"><span class="marco">KM<b>${e.km}</b><span>${esc(e.curto)}</span></span><i></i></a>`).join("");
   const frase = [["Desde"], ["1970", 1], ["a"], ["Larssen"], ["juntou"], ["500 hectares", 1], ["de"], ["floresta"], ["plantada,"], ["uma"], ["serraria"], ["de"], ["100 m³", 1], ["por"], ["dia,"], ["autoclave,"], ["frota"], ["própria"], ["e"], ["máquinas"], ["de"], ["obra."], ["Tudo"], ["na"], ["mesma"], ["estrada."]]
-    .map(([t, d]) => `<span class="p${d ? " dado" : ""}">${t}</span>`).join(" ");
+    .map(([t, d]) => `<span class="p on${d ? " dado" : ""}">${t}</span>`).join(" ");
   const paradas = ETAPAS.map(et => {
     const e = et.empresa ? emp(et.empresa) : null;
     return `<article class="parada"><div class="foto">${img(et.foto, et.nome, { sizes: "(min-width:760px) 34vw, 92vw" })}<span class="marco">KM<b class="num">${et.km}</b></span></div><h3>${esc(et.nome)}</h3><p>${esc(et.texto)}</p>${e ? `<a class="link-seta" href="${paginaEmp[e.id]}">${esc(e.nome)} ${IC.seta}</a>` : ""}</article>`;
@@ -270,35 +270,18 @@ const paginas = [];
   }).join("");
   const destaque = ["dormentes-tratados", "pergolados", "decks", "assoalhos", "mouroes", "maravalha-aviario", "tesouras", "cavaco"].map(id => ticket(PRODUTOS.find(p => p.id === id))).join("");
   const corpo = `
-<div class="carregador" aria-hidden="true"><div class="caixa"><span class="placa">${GRUPO}</span><div class="estrada-c"><i></i></div><div class="km-c">KM <b class="num">0</b><small>de 25</small></div></div></div>
-<section class="hero3d" data-hero3d data-caps='${JSON.stringify(caps).replace(/'/g, "&#39;")}' aria-label="A rota do Grupo Larssen em 3D">
-  <div class="palco">
-    <div class="reserva" style="background-image:url(img/g/madeireiralarssen_2019_08_aereas.webp)"></div>
-    <canvas aria-hidden="true"></canvas>
-    <div class="veu"></div>
-    <div class="pinos">${pinos}</div>
-    <div class="texto">
-      <h1><span class="l"><span>Da floresta</span></span><span class="l"><span>à entrega.</span></span></h1>
-      <p>Cinco empresas na mesma rota: floresta plantada, serraria, madeira tratada em autoclave, transporte e obra. Em Três Passos/RS, desde 1970.</p>
-      <nav class="saidas-m" aria-label="Empresas do grupo">${EMPRESAS.map(e => `<a href="${paginaEmp[e.id]}" class="placa">${ICONE(e.id)}<span>${esc(e.curto === "Madeiras Tratadas" ? "Tratadas" : e.curto)}</span></a>`).join("")}</nav>
-      <div class="acoes"><a class="botao" href="produtos.html">${IC.romaneio} Montar orçamento</a><a class="botao branco" href="${zap("Olá, Grupo Larssen! Quero falar com um vendedor.")}" target="_blank" rel="noopener">${IC.zap} WhatsApp</a></div>
-    </div>
-    <nav class="placa placa-saidas" aria-label="Empresas do grupo"><div class="titulo"><span>Saídas</span><span>Grupo Larssen</span></div>${saidasPlaca}</nav>
-    <div class="legenda3d" aria-live="polite"></div>
-    <div class="rolar" aria-hidden="true">Role para seguir a rota<i></i></div>
-  </div>
-</section>
-
-<section class="bloco" data-saida="Desde 1970">
+<section class="bloco abertura" data-saida="Desde 1970">
   <div class="miolo frase-grade">
     <div>
-    <p class="frase-grande" data-acende>${frase}</p>
+    <h1 class="titulo-abertura">Da floresta à entrega.</h1>
+    <p class="frase-grande">${frase}</p>
     <div class="dados-linha revela">
       <div><b class="num">1970</b><span>início da serraria</span></div>
       <div><b class="num" data-conta="500">500</b><span>hectares reflorestados</span></div>
       <div><b class="num" data-conta="47000" data-suf=" m²">47.000 m²</b><span>de parque industrial</span></div>
       <div><b class="num" data-conta="5">5</b><span>empresas no grupo</span></div>
     </div>
+    <div class="acoes-abertura"><a class="botao" href="produtos.html">${IC.romaneio} Montar orçamento</a><a class="botao zap" href="${zap("Olá, Grupo Larssen! Quero falar com um vendedor.")}" target="_blank" rel="noopener">${IC.zap} WhatsApp</a></div>
     </div>
     <div class="frase-foto mascara">${img("madeireiralarssen_2019_08_aereas.jpg", "Vista aérea do parque industrial da Larssen em Três Passos", { sizes: "(min-width:900px) 40vw, 92vw", attrs: 'data-parallax="12"' })}<span class="marco">KM<b>2</b></span></div>
   </div>
@@ -354,7 +337,7 @@ const paginas = [];
   </div>
 </section>
 ${chamadaFinal()}`;
-  paginas.push(pagina({ arquivo: "index.html", titulo: "Grupo Larssen · Da floresta à entrega · Três Passos/RS", descricao: "Floresta, serraria, madeira tratada em autoclave, transporte e escavações. Cinco empresas do Grupo Larssen em Três Passos/RS, desde 1970.", corpo, home: true }));
+  paginas.push(pagina({ arquivo: "index.html", titulo: "Grupo Larssen · Da floresta à entrega · Três Passos/RS", descricao: "Floresta, serraria, madeira tratada em autoclave, transporte e escavações. Cinco empresas do Grupo Larssen em Três Passos/RS, desde 1970.", corpo }));
 }
 
 // ----- EMPRESAS -----
@@ -476,7 +459,7 @@ ${chamadaFinal()}`;
 
 // ----- CONTATO -----
 {
-  const mapaQ = encodeURIComponent("Av. José de Alencar, 490, Três Passos - RS, 98600-000");
+  const mapaQ = encodeURIComponent("Larssen Madeiras Tratadas, Rua Renato José Oppermann, 210, Três Passos - RS, 98600-000");
   const corpo = `
 <section class="capa clara"><div class="miolo"><nav class="migalhas" aria-label="Você está em"><a href="index.html">Grupo Larssen</a><span>/</span><span>Contato</span></nav><h1>Fale com o Grupo Larssen.</h1><p>Um número para as cinco empresas. Escreva o que precisa e a mensagem chega no WhatsApp do grupo.</p></div></section>
 <section class="bloco" style="padding-top:40px" data-saida="Contato"><div class="miolo contato-grade">
@@ -486,8 +469,7 @@ ${chamadaFinal()}`;
       <a class="canal" href="${CONTATO.telLink}"><span class="ic">${IC.tel}</span><span><b>Ligar</b><span>${CONTATO.telefone}</span></span></a>
       <a class="canal" href="mailto:${CONTATO.emails.madeireira}"><span class="ic">${IC.email}</span><span><b>Madeireira</b><span>${CONTATO.emails.madeireira}</span></span></a>
       <a class="canal" href="mailto:${CONTATO.emails.tratadas}"><span class="ic">${IC.email}</span><span><b>Madeiras Tratadas</b><span>${CONTATO.emails.tratadas}</span></span></a>
-      <div class="canal"><span class="ic">${IC.pino}</span><span><b>Matriz</b><span>${CONTATO.endereco}, CEP ${CONTATO.cep}, ${CONTATO.cidade}</span></span></div>
-      <div class="canal"><span class="ic">${IC.pino}</span><span><b>Madeiras Tratadas</b><span>${CONTATO.enderecoTratadas}</span></span></div>
+      <a class="canal" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("Larssen Madeiras Tratadas, " + CONTATO.endereco + ", Três Passos, RS")}" target="_blank" rel="noopener"><span class="ic">${IC.pino}</span><span><b>Atendimento: ${CONTATO.localAtendimento}</b><span>${CONTATO.endereco}, ${CONTATO.bairro}, CEP ${CONTATO.cep}, ${CONTATO.cidade}</span></span></a>
       <a class="canal" href="https://www.instagram.com/grupolarssen" target="_blank" rel="noopener"><span class="ic">${IC.insta}</span><span><b>Instagram</b><span>@grupolarssen</span></span></a>
     </div>
   </div>

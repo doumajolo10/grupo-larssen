@@ -42,29 +42,19 @@ const checa = (cond, nome) => { if (cond) { ok++; console.log("  ok   " + nome);
   checa(!semH1.length, "cada página tem exatamente um h1" + (semH1.length ? ": " + semH1.join(", ") : ""));
   checa(!semDesc.length, "cada página tem descrição para o Google" + (semDesc.length ? ": " + semDesc.join(", ") : ""));
 
-  // 2. home: 3D, carregador, placa de saídas, legenda que muda com a rolagem
+  // 2. home: abertura sem 3D, frase, números, trilho
   console.log("Home");
   let p = await nova();
-  await p.goto(BASE, { waitUntil: "networkidle2" }); await espera(4500);
-  checa(await p.evaluate(() => !document.querySelector(".carregador")), "carregador sai sozinho em até 4,5 s");
-  checa(await p.evaluate(() => !!window.LarssenCena), "cena 3D iniciou");
-  const pixel = await p.evaluate(() => { const c = document.querySelector(".hero3d canvas"); return c.width > 300 && c.height > 300; });
-  checa(pixel, "canvas 3D com tamanho de tela");
-  checa(await p.evaluate(() => document.querySelectorAll(".placa-saidas a").length === 5), "placa com as 5 empresas");
-  const leg1 = await p.evaluate(() => document.querySelector(".legenda3d h3")?.textContent);
-  await p.evaluate(() => { const h = document.querySelector(".hero3d"); window.LarssenLenis ? window.LarssenLenis.scrollTo((h.offsetHeight - innerHeight) * 0.6, { immediate: true }) : scrollTo(0, (h.offsetHeight - innerHeight) * 0.6); }); await espera(1200);
-  const leg2 = await p.evaluate(() => document.querySelector(".legenda3d h3")?.textContent);
-  checa(leg1 && leg2 && leg1 !== leg2, `legenda acompanha a rota (${leg1} → ${leg2})`);
-  checa(await p.evaluate(() => document.querySelector(".hero3d").classList.contains("viajando")), "título sai de cena durante a viagem");
-  await p.evaluate(() => { const h = document.querySelector(".hero3d"); window.LarssenLenis.scrollTo((h.offsetHeight - innerHeight) * 0.99, { immediate: true }); }); await espera(1500);
-  checa(await p.evaluate(() => document.querySelector(".hero3d").classList.contains("dissolvendo")), "fim da rota dissolve a cena no papel");
-  await p.evaluate(() => { const h = document.querySelector(".hero3d"); window.LarssenLenis.scrollTo((h.offsetHeight - innerHeight) * 0.6, { immediate: true }); }); await espera(1200);
+  await p.goto(BASE, { waitUntil: "networkidle2" }); await espera(1500);
+  checa(await p.evaluate(() => !document.querySelector("canvas, .hero3d, .carregador")), "abertura sem cena 3D nem carregador");
+  checa(await p.evaluate(() => { const h = document.querySelector("h1"); const r = h.getBoundingClientRect(); return h.textContent.includes("Da floresta") && r.top > 60 && r.bottom < innerHeight; }), "título visível na primeira tela");
+  checa(await p.evaluate(() => [...document.querySelectorAll(".acoes-abertura a")].length === 2), "botões de orçamento e WhatsApp na abertura");
+  checa(await p.evaluate(() => { const i = document.querySelector(".abertura .frase-foto img"); return i.complete && i.naturalWidth > 0; }), "foto aérea da abertura carregou");
+  await espera(2200);
+  checa(await p.evaluate(() => document.querySelector("[data-conta='47000']").textContent.includes("47.000")), "contador chega a 47.000 m²");
+  await p.evaluate(() => { window.LarssenLenis ? window.LarssenLenis.scrollTo(2500, { immediate: true }) : scrollTo(0, 2500); }); await espera(1200);
   const km = await p.evaluate(() => document.querySelector(".trilho .km b").textContent);
   checa(km !== "0,0", "trilho lateral avança o km (" + km + ")");
-  // contadores e frase
-  await p.evaluate(() => { const e = document.querySelector("[data-acende]"); window.LarssenLenis.scrollTo(e.getBoundingClientRect().top + scrollY - 100, { immediate: true }); }); await espera(2200);
-  checa(await p.evaluate(() => document.querySelectorAll("[data-acende] .p.on").length > 10), "frase acende com a rolagem");
-  checa(await p.evaluate(() => document.querySelector("[data-conta='47000']").textContent.includes("47.000")), "contador chega a 47.000 m²");
   // mapa
   await p.evaluate(() => { const e = document.querySelector("[data-mapa]"); window.LarssenLenis.scrollTo(e.getBoundingClientRect().top + scrollY - 200, { immediate: true }); }); await espera(2600);
   checa(await p.evaluate(() => document.querySelectorAll(".uf.atende.on").length === 8), "mapa acende os 8 estados");

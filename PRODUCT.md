@@ -31,7 +31,7 @@ Vertically integrated chain in one group: own forests (~500 ha of pinus and euca
 
 - Group companies (confirmed by Douglas + group logo + Instagram @grupolarssen highlights Log/Escavações/Florestal/Tratadas/Madeireira): Larssen Florestal (plantio, manejo, colheita mecanizada com harvester); Madeireira Larssen; Larssen Madeiras Tratadas (since 2010); Larssen Escavações (escavadeira Volvo, rompimento de pedras e concreto); Log Larssen Transportes (since 2023). Larssen Materiais de Construção is NOT part of the group. Group says "55 anos construindo histórias" (55 anos em 2025).
 - Madeireira: Distrito Industrial de Três Passos, 47.000 m² total, 11.000 m² covered, 50 colaboradores, 100 m³/dia, sells to all states (mainly RS, SC, PR, MS, MT, SP, MG, RJ). Missão/visão/valores on the old site.
-- Contact: one central number (55) 3522-1635 (WhatsApp 555535221635) for all companies; contato@madeireiralarssen.com.br, contato@madelarssen.com.br; Av. José de Alencar, 490, CEP 98600-000, Três Passos/RS; Tratadas also at Rua Renato José Oppermann, 210. Instagram @grupolarssen (bio also lists cell (55) 93619-7019), @madeireiralarssen, Facebook /larssenmadeireira, Facebook /larssenescavacoes.
+- Contact: one central number (55) 3522-1635 (WhatsApp 555535221635) for all companies; contato@madeireiralarssen.com.br, contato@madelarssen.com.br; customer service (atendimento) is at Larssen Madeiras Tratadas, Rua Renato José Oppermann, 210, Distrito Industrial, CEP 98600-000, Três Passos/RS (confirmed by Douglas 15/10/2026; the old Av. José de Alencar, 490 is not shown). Instagram @grupolarssen (bio also lists cell (55) 93619-7019), @madeireiralarssen, Facebook /larssenmadeireira, Facebook /larssenescavacoes.
 
 ## Capabilities and Constraints
 
