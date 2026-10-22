@@ -168,4 +168,13 @@ const AUTOCLAVE = [
 
 const ESTADOS = ["RS", "SC", "PR", "MS", "MT", "SP", "MG", "RJ"];
 
-module.exports = { CONTATO, EMPRESAS, LINHAS, PRODUTOS, ETAPAS, AUTOCLAVE, ESTADOS };
+// cadastro vivo: build/puxa.js grava build/produtos.json com o que está no painel (Supabase); sem ele, vale a lista acima
+const PRODUTOS_SITE = (() => {
+  try {
+    const j = JSON.parse(require("fs").readFileSync(require("path").join(__dirname, "produtos.json"), "utf8"));
+    const norm = require("../assets/modelo-produtos.js")({ LINHAS, EMPRESAS, IC: {}, paginaEmp: {}, whats: CONTATO.whats }).normaliza;
+    const lista = j.map(norm).filter(p => p.nome);
+    return lista.length ? lista : PRODUTOS;
+  } catch (e) { return PRODUTOS; }
+})();
+module.exports = { CONTATO, EMPRESAS, LINHAS, PRODUTOS: PRODUTOS_SITE, PRODUTOS_ORIGINAIS: PRODUTOS, ETAPAS, AUTOCLAVE, ESTADOS };

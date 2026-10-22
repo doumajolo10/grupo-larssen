@@ -1,0 +1,34 @@
+# Mantém as páginas do site iguais ao painel de produtos (para o Google e para quem abre sem JavaScript).
+# O site já mostra as mudanças do painel na hora; esta rotina só regrava as páginas estáticas.
+name: Atualiza produtos do painel
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: atualiza-produtos
+  cancel-in-progress: false
+jobs:
+  atualiza:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node build/puxa.js
+      - run: node build/build.js
+      - name: Grava se algo mudou
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "larssen-painel"
+            git config user.email "larssen-painel@users.noreply.github.com"
+            git add -A
+            git commit -m "Produtos atualizados pelo painel"
+            git push
+          else
+            echo "nada mudou"
+          fi

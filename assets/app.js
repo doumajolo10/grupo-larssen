@@ -1,5 +1,6 @@
 // Grupo Larssen · comportamento do site (sem dependência obrigatória: GSAP/Lenis entram como melhoria).
-(function () {
+// espera o vivo.js trazer o catálogo atualizado pelo painel (no máximo ~2,5 s) antes de ligar filtros, animações e botões
+(window.LARSSEN_VIVO || Promise.resolve()).then(function () {
   "use strict";
   var doc = document, html = doc.documentElement, body = doc.body;
   var reduz = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -7,6 +8,7 @@
   var $ = function (s, c) { return (c || doc).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || doc).querySelectorAll(s)); };
   var temGsap = !!(window.gsap && window.ScrollTrigger);
+  var aoCarregar = function (f) { if (doc.readyState === "complete") setTimeout(f, 0); else window.addEventListener("load", f); };
   if (temGsap) gsap.registerPlugin(ScrollTrigger);
   html.classList.add("anima"); if (reduz) html.classList.add("calmo");
 
@@ -63,7 +65,7 @@
         s.style.top = (8 + p * (tr.clientHeight - 16)) + "px"; tr.appendChild(s);
       });
     };
-    window.addEventListener("load", posicionar); window.addEventListener("resize", posicionar); setTimeout(posicionar, 1200);
+    aoCarregar(posicionar); window.addEventListener("resize", posicionar); setTimeout(posicionar, 1200);
   }
   aoRolar();
 
@@ -394,5 +396,5 @@
 
   // ---------- ano no rodapé ----------
   $$("[data-ano]").forEach(function (e) { e.textContent = new Date().getFullYear(); });
-  window.addEventListener("load", function () { if (temGsap) ScrollTrigger.refresh(); trilho(); });
-})();
+  aoCarregar(function () { if (temGsap) ScrollTrigger.refresh(); trilho(); });
+});

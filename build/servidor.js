@@ -7,6 +7,8 @@ const TIPOS = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": 
 http.createServer((req, res) => {
   let u = decodeURIComponent(req.url.split("?")[0]);
   if (u.endsWith("/")) u += "index.html";
+  if (u === "/painel") u = "/painel/index.html"; // mesmo rewrite do vercel.json
+  if (/^\/produto-[a-z0-9-]+\.html$/.test(u) && !fs.existsSync(path.join(RAIZ, u))) u = "/produto.html"; // produto novo do painel antes do build
   const f = path.join(RAIZ, path.normalize(u).replace(/^([/\\])+/, ""));
   if (!f.startsWith(RAIZ)) { res.writeHead(403); return res.end(); }
   fs.readFile(f, (e, d) => {

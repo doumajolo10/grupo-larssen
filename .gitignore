@@ -3,5 +3,7 @@ pesquisa/*
 !pesquisa/br-uf.json
 !pesquisa/ufs.json
 build/node_modules/
+node_modules/
 .impeccable/
 .claude/
+supabase/

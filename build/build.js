@@ -5,7 +5,8 @@ const { CONTATO, EMPRESAS, LINHAS, PRODUTOS, ETAPAS, AUTOCLAVE, ESTADOS } = requ
 const IC = require("./icones.js");
 const RAIZ = path.join(__dirname, "..");
 const SITE = "https://grupo-larssen.vercel.app"; // trocar pelo domínio final
-const V = Date.now().toString(36); // versão dos assets (cache)
+// versão dos assets (cache): muda só quando o conteúdo muda, para a rotina do painel não regravar tudo à toa
+const V = require("crypto").createHash("sha1").update(["assets/estilo.css", "assets/app.js", "assets/vivo.js", "assets/modelo-produtos.js", "build/orcamento.js", "fontes/fontes.css", "painel/painel.js", "painel/painel.css"].map(f => fs.readFileSync(path.join(RAIZ, f))).join("")).digest("hex").slice(0, 8);
 
 // ---------- utilidades ----------
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -20,8 +21,10 @@ const ICONE = id => usar("ic-" + id);
 const emp = id => EMPRESAS.find(e => e.id === id);
 const linha = id => LINHAS.find(l => l.id === id);
 const base = f => f.replace(/\.(jpe?g|png)$/i, "");
-const dims = {};
-for (const f of fs.readdirSync(path.join(RAIZ, "img/g")).filter(f => f.endsWith(".webp"))) {
+// medidas das fotos: guardadas em build/dims.json (a rotina do painel no GitHub não tem ffprobe)
+const DIMS_ARQ = path.join(__dirname, "dims.json");
+const dims = fs.existsSync(DIMS_ARQ) ? JSON.parse(fs.readFileSync(DIMS_ARQ, "utf8")) : {};
+for (const f of fs.readdirSync(path.join(RAIZ, "img/g")).filter(f => f.endsWith(".webp") && !dims[f.replace(".webp", "")])) {
   try { const o = execFileSync("ffprobe", ["-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height", "-of", "csv=p=0", path.join(RAIZ, "img/g", f)]).toString().trim().split(","); dims[f.replace(".webp", "")] = o.map(Number); } catch (e) {}
 }
 function img(foto, alt, { sizes = "100vw", cls = "", attrs = "", carregar = "lazy", prio = carregar === "eager" } = {}) {
@@ -31,6 +34,10 @@ function img(foto, alt, { sizes = "100vw", cls = "", attrs = "", carregar = "laz
 const zap = (txt) => `https://wa.me/${CONTATO.whats}?text=${encodeURIComponent(txt)}`;
 const paginaEmp = { florestal: "florestal.html", madeireira: "madeireira.html", tratadas: "madeiras-tratadas.html", transportes: "transportes.html", escavacoes: "escavacoes.html" };
 const nomeCarimbo = { floresta: "Floresta", serraria: "Serrado", beneficiamento: "Aplainado", autoclave: "Autoclavado" };
+// modelo dos produtos compartilhado com o navegador (o painel muda o cadastro e o site redesenha igual)
+const SUPA = { url: "https://cwsjddppdogvyitspbfr.supabase.co", chave: "sb_publishable_zpNPLwlPqkOR6pnvrxRGHw_78r3siqN" };
+const CTX = { LINHAS, EMPRESAS: EMPRESAS.map(e => ({ id: e.id, nome: e.nome, curto: e.curto })), IC: { mais: IC.mais, romaneio: IC.romaneio, zap: IC.zap }, paginaEmp, whats: CONTATO.whats };
+const MOD = require("../assets/modelo-produtos.js")(Object.assign({ dims }, CTX));
 
 // ---------- peças comuns ----------
 function cabecalho(atual) {
@@ -135,6 +142,9 @@ ${gaveta()}
 <script src="assets/vendor/gsap-3.12.5.min.js" defer></script>
 <script src="assets/vendor/ScrollTrigger-3.12.5.min.js" defer></script>
 <script src="assets/vendor/lenis-1.1.13.min.js" defer></script>
+<script src="assets/dados-site.js?v=${V}" defer></script>
+<script src="assets/modelo-produtos.js?v=${V}" defer></script>
+<script src="assets/vivo.js?v=${V}" defer></script>
 <script src="assets/orcamento.js?v=${V}" defer></script>
 <script src="assets/app.js?v=${V}" defer></script>
 </body>
@@ -145,24 +155,13 @@ ${gaveta()}
 }
 
 // ---------- componentes ----------
-function ticket(p, { carregar = "lazy" } = {}) {
-  const e = emp(linha(p.linha).empresa);
-  return `<article class="ticket revela" data-linha="${p.linha}" data-empresa-id="${e.id}">
-  <div class="foto">${img(p.foto, p.nome, { sizes: "(min-width:1100px) 380px, (min-width:700px) 45vw, 92vw", carregar, prio: false })}</div>
-  <div class="serrilha" aria-hidden="true"></div>
-  <div class="corpo">
-    <h3><a href="produto-${p.id}.html">${esc(p.nome)}</a></h3>
-    <p class="uso">${esc(p.uso)}</p>
-    <ul class="bitolas">${p.bitolas.slice(0, 3).map(b => `<li>${esc(b)}</li>`).join("")}</ul>
-    <div class="carimbos" aria-label="Etapas por onde passa">${p.carimbos.map(c => `<span class="carimbo c-${c}">${nomeCarimbo[c]}</span>`).join("")}</div>
-    <div class="pe"><span class="madeira">${esc(p.madeira)}<small>${esc(linha(p.linha).nome)} · ${esc(e.curto)}</small></span>${botaoAdd(p)}</div>
-  </div>
-</article>`;
+const ticket = (p, o) => MOD.ticket(p, o);
+function destaquesHome(prods) {
+  const marcados = prods.filter(p => p.destaque > 0).sort((a, b) => a.destaque - b.destaque);
+  if (marcados.length) return marcados.slice(0, 8);
+  return ["dormentes-tratados", "pergolados", "decks", "assoalhos", "mouroes", "maravalha-aviario", "tesouras", "cavaco"].map(id => prods.find(p => p.id === id)).filter(Boolean);
 }
-function botaoAdd(p, rotulo = "Romaneio") {
-  const e = emp(linha(p.linha).empresa);
-  return `<button type="button" class="bt-add" data-add="${p.id}" data-nome="${esc(p.nome)}" data-empresa="${esc(e.nome)}" data-rotulo="${rotulo}">${IC.mais}<span class="t">${rotulo}</span></button>`;
-}
+const botaoAdd = (p, rotulo) => MOD.botaoAdd(p, rotulo);
 function listaServicos(serv) {
   return `<ul class="lista-servicos">${serv.map(([t, d]) => `<li>${IC.check}<span><b>${esc(t)}.</b> ${esc(d)}</span></li>`).join("")}</ul>`;
 }
@@ -171,19 +170,7 @@ function chamadaFinal(titulo = "Monte seu romaneio e receba o orçamento no What
 }
 
 // ---------- catálogo agrupado (romaneio) ----------
-const KM_LINHA = { bruta: 2, beneficiada: 5, tratadas: 9, casas: 5, agro: 11, industria: 11, montadas: 5 };
-function catalogo(prods, { comVistas = true, ancora = "" } = {}) {
-  const grupos = LINHAS.filter(l => prods.some(p => p.linha === l.id));
-  const vistas = comVistas ? `<div class="vistas" role="group" aria-label="Ver catálogo como"><button type="button" data-vista="lista" aria-pressed="true">${IC.romaneio} Romaneio</button><button type="button" data-vista="grade" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg> Fotos</button></div>` : "";
-  let i = 0;
-  return vistas + `<div class="catalogo vista-lista" data-vistas>${grupos.map(l => {
-    const lista = prods.filter(p => p.linha === l.id);
-    return `<section class="grupo-cat" data-grupo="${l.id}"${ancora ? ` id="${ancora}-${l.id}"` : ""}>
-      <header class="cab-grupo"><span class="marco">KM<b>${KM_LINHA[l.id] ?? ""}</b></span><div><h2>${esc(l.nome)}</h2><p>${esc(l.texto)}</p></div><span class="qtd-grupo">${lista.length} ${lista.length === 1 ? "item" : "itens"}</span></header>
-      <div class="grade-romaneio">${lista.map(p => ticket(p, { carregar: i++ < 4 ? "eager" : "lazy" })).join("")}</div>
-    </section>`;
-  }).join("")}</div>`;
-}
+const catalogo = (prods, o) => MOD.catalogo(prods, o);
 
 // ---------- mapa do Brasil (IBGE) ----------
 function mapaBrasil() {
@@ -268,7 +255,7 @@ const paginas = [];
       <div class="revela">${marca}<h3>${esc(e.frase)}</h3><p>${esc(e.texto)}</p>${lista}<a class="botao verde" href="${paginaEmp[e.id]}">Conhecer a ${esc(e.curto === "Madeiras Tratadas" ? "Tratadas" : e.curto)} ${IC.seta}</a></div>
     </div>`;
   }).join("");
-  const destaque = ["dormentes-tratados", "pergolados", "decks", "assoalhos", "mouroes", "maravalha-aviario", "tesouras", "cavaco"].map(id => ticket(PRODUTOS.find(p => p.id === id))).join("");
+  const destaque = destaquesHome(PRODUTOS).map(p => ticket(p)).join("");
   const corpo = `
 <section class="bloco abertura" data-saida="Desde 1970">
   <div class="miolo frase-grade">
@@ -315,8 +302,8 @@ const paginas = [];
 <section class="bloco" aria-labelledby="t-cat" data-saida="Produtos">
   <div class="miolo">
     <div class="cabeca com-marco"><span class="marco">KM<b>2–11</b></span><div><h2 id="t-cat">Do dormente à maravalha, em bitolas de verdade.</h2><p class="lead">Cada produto mostra medidas, espécie e as etapas por onde passou. Junte os que precisa no romaneio e mande tudo de uma vez.</p></div></div>
-    <div class="grade-romaneio">${destaque}</div>
-    <p style="margin-top:36px"><a class="botao verde" href="produtos.html">Ver os ${PRODUTOS.length} produtos ${IC.seta}</a></p>
+    <div class="grade-romaneio" data-vivo="destaques">${destaque}</div>
+    <p style="margin-top:36px"><a class="botao verde" href="produtos.html">Ver os <span data-n-produtos>${PRODUTOS.length}</span> produtos ${IC.seta}</a></p>
   </div>
 </section>
 
@@ -345,7 +332,7 @@ for (const e of EMPRESAS) {
   const marca = e.logo ? `<span class="logo-capa"><img src="${e.logo}" alt="${esc(e.nome)}" width="280" height="70"></span>` : "";
   const nums = e.numeros ? `<div class="numeros revela">${e.numeros.map(([n, t]) => `<div><b class="num">${esc(n)}</b><span>${esc(t)}</span></div>`).join("")}</div>` : "";
   const prods = PRODUTOS.filter(p => linha(p.linha).empresa === e.id);
-  const linhasBloco = e.linhas ? `<section class="bloco" style="background:var(--concreto)" data-saida="Produtos"><div class="miolo"><div class="cabeca"><h2>Linhas de produto</h2><p class="lead">${prods.length} produtos com bitolas e espécies. Adicione ao romaneio e peça o orçamento.</p></div>${catalogo(prods)}</div></section>` : "";
+  const linhasBloco = e.linhas ? `<section class="bloco" style="background:var(--concreto)" data-saida="Produtos"><div class="miolo"><div class="cabeca"><h2>Linhas de produto</h2><p class="lead"><span data-n-empresa="${e.id}">${prods.length}</span> produtos com bitolas e espécies. Adicione ao romaneio e peça o orçamento.</p></div><div data-vivo="empresa" data-empresa="${e.id}">${catalogo(prods)}</div></div></section>` : "";
   const servBloco = e.servicos ? `<section class="bloco" data-saida="Serviços"><div class="miolo grade-2"><div class="revela"><h2>O que a ${esc(e.curto === "Transportes" ? "Log Larssen" : e.curto)} faz</h2><p class="lead" style="margin-top:18px">${esc(e.frase)}</p><p style="margin-top:22px"><a class="botao zap" href="${zap(`Olá! Quero um orçamento com a ${e.nome}.`)}" target="_blank" rel="noopener">${IC.zap} Pedir orçamento</a></p></div><div class="revela">${listaServicos(e.servicos)}</div></div></section>` : "";
   const auto = e.id === "tratadas" ? `<section class="autoclave bloco" data-autoclave data-saida="Autoclave"><div class="miolo"><div class="cabeca"><h2>Como a autoclave trata a madeira</h2><p class="lead">Vácuo, pressão e CCA tipo C: a solução preservativa entra até a saturação das fibras.</p></div><div class="auto-grade"><div class="auto-palco">${desenhoAutoclave()}</div><div class="estacoes">${AUTOCLAVE.map(([t, d], i) => `<div class="estacao${i === 0 ? " on" : ""}"><span class="n">${i + 1}</span><h3>${t}</h3><p>${d}</p></div>`).join("")}</div></div><div class="cca"><div><b>C</b><span>Cromo fixa os ingredientes nas fibras.</span></div><div><b>C</b><span>Cobre combate os fungos apodrecedores.</span></div><div><b>A</b><span>Arsênio protege contra cupim e broca.</span></div></div></div></section>` : "";
   const galeria = `<section class="bloco" data-saida="Fotos"><div class="miolo"><div class="cabeca"><h2>Fotos</h2></div><div class="galeria">${e.fotos.map(f => `<a href="img/g/${base(f)}.webp" class="mascara">${img(f, e.nome, { sizes: "(min-width:700px) 58vw, 92vw" })}</a>`).join("")}</div></div></section>`;
@@ -371,12 +358,12 @@ ${chamadaFinal(e.servicos && !e.linhas ? `Fale com a ${esc(e.curto === "Transpor
 {
   const chips = [["todos", "Todos"], ...LINHAS.map(l => [l.id, l.nome])].map(([id, t], i) => `<button type="button" class="chip" data-filtro="${id}" aria-pressed="${i === 0}">${esc(t)}</button>`).join("");
   const corpo = `
-<section class="capa clara"><div class="miolo"><nav class="migalhas" aria-label="Você está em"><a href="index.html">Grupo Larssen</a><span>/</span><span>Produtos</span></nav><h1>Catálogo de produtos</h1><p>${PRODUTOS.length} produtos da Madeireira Larssen e da Larssen Madeiras Tratadas, com bitolas, espécies e etapas. Adicione ao romaneio e peça o orçamento de uma vez.</p></div></section>
+<section class="capa clara"><div class="miolo"><nav class="migalhas" aria-label="Você está em"><a href="index.html">Grupo Larssen</a><span>/</span><span>Produtos</span></nav><h1>Catálogo de produtos</h1><p><span data-n-produtos>${PRODUTOS.length}</span> produtos da Madeireira Larssen e da Larssen Madeiras Tratadas, com bitolas, espécies e etapas. Adicione ao romaneio e peça o orçamento de uma vez.</p></div></section>
 <section class="bloco" style="padding-top:20px" data-catalogo data-saida="Catálogo">
   <div class="miolo">
     <div class="filtros"><div class="linha">${chips}<label class="busca">${IC.busca}<span class="sr">Buscar produto</span><input type="search" data-busca placeholder="Buscar: dormente, deck, eucalipto…"></label></div></div>
     <p class="contagem" data-contagem aria-live="polite">${PRODUTOS.length} produtos</p>
-    ${catalogo(PRODUTOS)}
+    <div data-vivo="catalogo">${catalogo(PRODUTOS)}</div>
     <div class="vazio" data-vazio hidden><p><b>Nenhum produto com esse nome.</b> Tente outra palavra ou fale direto com a gente: fazemos cortes especiais sob medida.</p><a class="botao zap" href="${zap("Olá! Procuro um produto que não achei no catálogo.")}" target="_blank" rel="noopener">${IC.zap} Perguntar no WhatsApp</a></div>
   </div>
 </section>
@@ -387,35 +374,12 @@ ${chamadaFinal()}`;
 // ----- FICHAS DE PRODUTO -----
 for (const p of PRODUTOS) {
   const l = linha(p.linha), e = emp(l.empresa);
-  const rel = PRODUTOS.filter(x => x.linha === p.linha && x.id !== p.id).slice(0, 3);
-  const etapas = ["floresta", "serraria", "beneficiamento", "autoclave"];
-  const corpo = `
-<section class="capa clara" style="min-height:0;padding-bottom:0"><div class="miolo" style="padding-bottom:30px"><nav class="migalhas" aria-label="Você está em"><a href="index.html">Grupo Larssen</a><span>/</span><a href="produtos.html">Produtos</a><span>/</span><a href="produtos.html#${l.id}">${esc(l.nome)}</a></nav><h1>${esc(p.nome)}</h1></div></section>
-<section class="bloco" style="padding-top:30px" data-saida="${esc(p.nome)}">
-  <div class="miolo ficha">
-    <div>
-      <div class="foto-g">${img(p.foto, p.nome, { carregar: "eager", sizes: "(min-width:860px) 56vw, 92vw" })}</div>
-      <div class="mini-rota" aria-label="Etapas por onde o produto passa">${etapas.map(s => `<span class="${p.carimbos.includes(s) ? "on" : ""}">${nomeCarimbo[s]}</span>`).join("")}</div>
-      <p class="lead" style="margin-top:26px">${esc(l.texto)}</p>
-    </div>
-    <article class="ticket">
-      <div class="corpo" style="padding-top:18px">
-        <h2 style="font-size:34px">${esc(p.nome)}</h2>
-        <table class="tabela-bitolas"><tbody>
-          <tr><th scope="row">Uso</th><td>${esc(p.uso)}</td></tr>
-          <tr><th scope="row">Madeira</th><td>${esc(p.madeira)}</td></tr>
-          <tr><th scope="row">Bitolas</th><td>${p.bitolas.map(esc).join("<br>")}</td></tr>
-          <tr><th scope="row">Empresa</th><td><a href="${paginaEmp[e.id]}">${esc(e.nome)}</a></td></tr>
-        </tbody></table>
-        <div class="carimbos">${p.carimbos.map(c => `<span class="carimbo c-${c}">${nomeCarimbo[c]}</span>`).join("")}</div>
-        <div style="display:grid;gap:10px;margin-top:16px">${botaoAdd(p, "Adicionar ao romaneio").replace('class="bt-add"', 'class="bt-add" style="height:52px;justify-content:center;font-size:18px"')}<a class="botao zap" style="justify-content:center" href="${zap(`Olá! Quero um orçamento de ${p.nome} (${p.madeira}).`)}" target="_blank" rel="noopener">${IC.zap} Pedir só este no WhatsApp</a></div>
-      </div>
-    </article>
-  </div>
-</section>
-${rel.length ? `<section class="bloco" style="background:var(--concreto)"><div class="miolo"><div class="cabeca"><h2>Da mesma linha</h2></div><div class="grade-romaneio">${rel.map(x => ticket(x)).join("")}</div></div></section>` : ""}`;
+  const corpo = MOD.ficha(p, PRODUTOS);
   paginas.push(pagina({ arquivo: `produto-${p.id}.html`, titulo: `${p.nome} · ${l.nome} · Grupo Larssen`, descricao: `${p.nome}: ${p.uso}. ${p.madeira}. ${p.bitolas.join("; ")}.`.slice(0, 158), corpo, kmIni: 2, kmFim: 9, imagem: p.foto }));
 }
+
+// molde para produto cadastrado no painel antes da próxima atualização das páginas (o vivo.js preenche)
+paginas.push(pagina({ arquivo: "produto.html", titulo: "Produto · Grupo Larssen", descricao: "Ficha de produto do Grupo Larssen.", kmIni: 2, kmFim: 9, corpo: `<div class="ficha-produto" data-ficha="" data-molde><section class="capa clara" style="min-height:60vh"><div class="miolo"><nav class="migalhas" aria-label="Você está em"><a href="index.html">Grupo Larssen</a><span>/</span><a href="produtos.html">Produtos</a></nav><h1>Carregando o produto…</h1><p data-molde-msg>Um instante.</p></div></section></div>` }));
 
 // ----- PROCESSO -----
 {
@@ -515,9 +479,41 @@ paginas.push(pagina({ arquivo: "privacidade.html", titulo: "Política de privaci
 // ----- 404 -----
 paginas.push(pagina({ arquivo: "404.html", titulo: "Página não encontrada · Grupo Larssen", descricao: "Essa página saiu da rota. Volte ao início do site do Grupo Larssen ou procure no catálogo de produtos.", corpo: `<section class="capa clara" style="min-height:80vh"><div class="miolo"><span class="marco" style="margin-bottom:24px">KM<b>404</b></span><h1>Essa estrada não existe.</h1><p>O endereço pode ter mudado. Volte para a rota principal ou procure no catálogo.</p><p style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px"><a class="botao" href="index.html">Voltar ao início</a><a class="botao linha" href="produtos.html">Ver produtos</a></p></div></section>` }));
 
+// ---------- painel de produtos (/painel) ----------
+{
+  const lg = SIMBOLOS.find(x => x.id === "lg-grupo");
+  fs.writeFileSync(path.join(RAIZ, "painel/index.html"), `<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Painel de produtos · Grupo Larssen</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/fontes/Barlow-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fontes/BarlowCondensed-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/fontes/fontes.css?v=${V}">
+<link rel="stylesheet" href="/painel/painel.css?v=${V}">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="lg-grupo" viewBox="${lg.vb}">${lg.corpo}</symbol></defs></svg>
+<div id="app"><div class="carregando-tela" role="status" aria-label="Carregando o painel"></div></div>
+<div class="avisos" id="avisos" role="status" aria-live="polite"></div>
+<noscript><p style="padding:24px">O painel precisa do JavaScript ligado no navegador.</p></noscript>
+<script src="/painel/painel.js?v=${V}"></script>
+</body>
+</html>
+`);
+}
+
 // ---------- extras ----------
+// o catálogo ao vivo só liga depois que o banco do painel existe (build/puxa.js conseguiu baixar a lista)
+const PAINEL_ATIVO = fs.existsSync(path.join(__dirname, "produtos.json"));
+fs.writeFileSync(path.join(RAIZ, "assets/dados-site.js"), "/* gerado por build/build.js */\nwindow.LARSSEN_CTX = " + JSON.stringify(Object.assign({ supa: SUPA, painelAtivo: PAINEL_ATIVO, estaticos: PRODUTOS.map(p => p.id) }, CTX)) + ";\n");
 fs.copyFileSync(path.join(__dirname, "orcamento.js"), path.join(RAIZ, "assets/orcamento.js"));
 { const t = fs.readFileSync(path.join(RAIZ, "assets/logos/icone-madeireira.svg"), "utf8"); const [x, y, w, h] = t.match(/viewBox="([^"]+)"/)[1].split(" ").map(Number); const m = Math.max(w, h) * 0.28, L = Math.max(w, h) + m * 2; const d = arred(t.match(/ d="([^"]+)"/)[1]); fs.writeFileSync(path.join(RAIZ, "assets/favicon.svg"), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${(x + w / 2 - L / 2).toFixed(1)} ${(y + h / 2 - L / 2).toFixed(1)} ${L.toFixed(1)} ${L.toFixed(1)}"><rect x="${(x + w / 2 - L / 2).toFixed(1)}" y="${(y + h / 2 - L / 2).toFixed(1)}" width="${L.toFixed(1)}" height="${L.toFixed(1)}" rx="${(L * 0.2).toFixed(1)}" fill="#54763A"/><path fill="#fff" fill-rule="evenodd" d="${d}"/></svg>`); }
 fs.writeFileSync(path.join(RAIZ, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${paginas.filter(p => p !== "404.html").map(p => `<url><loc>${SITE}/${p === "index.html" ? "" : p}</loc></url>`).join("")}</urlset>\n`);
 fs.writeFileSync(path.join(RAIZ, "robots.txt"), `User-agent: *\nAllow: /\nDisallow: /painel\nSitemap: ${SITE}/sitemap.xml\n`);
+fs.writeFileSync(DIMS_ARQ, JSON.stringify(dims));
 console.log("páginas geradas:", paginas.length);

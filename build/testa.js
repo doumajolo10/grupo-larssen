@@ -3,6 +3,7 @@ const puppeteer = require("C:/Users/Douglas/Desktop/CLAUDE/majex-produtos/node_m
 const fs = require("fs"), path = require("path");
 const BASE = "http://localhost:4040/";
 const RAIZ = path.join(__dirname, "..");
+const PAINEL = JSON.parse(fs.readFileSync(path.join(RAIZ, "painel", "catalogo.json"), "utf8"));
 const espera = ms => new Promise(r => setTimeout(r, ms));
 const clicar = async (p, sel) => { await p.evaluate(sel => { const e = document.querySelector(sel); const y = e.getBoundingClientRect().top + scrollY - innerHeight / 2; if (window.LarssenLenis) window.LarssenLenis.scrollTo(y, { immediate: true }); else scrollTo(0, y); }, sel); await espera(500); await p.click(sel); };
 let ok = 0, falhas = [];
@@ -18,6 +19,9 @@ const checa = (cond, nome) => { if (cond) { ok++; console.log("  ok   " + nome);
     p.on("response", r => { if (r.status() >= 400 && r.url().startsWith(BASE)) erros.push(r.status() + " " + r.url()); });
     await p.setViewport({ width: w, height: h, isMobile: movel, hasTouch: movel });
     await p.emulateMediaFeatures([{ name: "prefers-reduced-motion", value: "no-preference" }]);
+    // painel (Supabase) simulado: devolve os produtos atuais, como se a equipe não tivesse mudado nada
+    await p.setRequestInterception(true);
+    p.on("request", r => { const u = r.url(); if (r.method() !== "OPTIONS" && u.includes("supabase.co/rest/v1/larssen_produtos")) return r.respond({ status: 200, contentType: "application/json", headers: { "Access-Control-Allow-Origin": "*" }, body: JSON.stringify(PAINEL.produtos) }); if (r.method() === "OPTIONS" && u.includes("supabase.co")) return r.respond({ status: 204, headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "apikey, accept, content-type", "Access-Control-Allow-Methods": "GET, OPTIONS" } }); r.continue(); });
     // abre links de WhatsApp sem sair: captura window.open
     await p.evaluateOnNewDocument(() => { window.__abertos = []; window.open = (u) => { window.__abertos.push(u); return null; }; });
     return p;

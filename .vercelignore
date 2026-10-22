@@ -3,3 +3,4 @@ pesquisa
 node_modules
 *.md
 .impeccable
+.github
