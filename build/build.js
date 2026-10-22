@@ -283,7 +283,7 @@ const paginas = [];
     </div>
     <div class="acoes-abertura"><a class="botao" href="produtos.html">${IC.romaneio} Montar orçamento</a><a class="botao zap" href="${zap("Olá, Grupo Larssen! Quero falar com um vendedor.")}" target="_blank" rel="noopener">${IC.zap} WhatsApp</a></div>
     </div>
-    <div class="frase-foto mascara">${img("madeireiralarssen_2019_08_aereas.jpg", "Vista aérea do parque industrial da Larssen em Três Passos", { sizes: "(min-width:900px) 40vw, 92vw", attrs: 'data-parallax="12"', carregar: "eager" })}<span class="marco">KM<b>2</b></span></div>
+    <div class="frase-foto">${img("madeireiralarssen_2019_08_aereas.jpg", "Vista aérea do parque industrial da Larssen em Três Passos", { sizes: "(min-width:900px) 40vw, 92vw", attrs: 'data-parallax="12"', carregar: "eager" })}<span class="marco">KM<b>2</b></span></div>
   </div>
 </section>
 
