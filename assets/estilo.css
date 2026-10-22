@@ -717,3 +717,8 @@ a.canal:hover { transform: translateY(-2px); box-shadow: var(--sombra-baixa); }
 .estacao.on h3 { color: #fff; }
 .estacao:not(.on) .n { opacity: .8; }
 .estacao p { color: #fff; }
+/* contraste mínimo 4,5:1 sobre o verde (auditoria 22/10) */
+.rodape h2.tit-r { opacity: 1; }
+.rodape .base { color: #fff; }
+.cca div { background: rgba(0, 0, 0, .14); }
+.cca span { opacity: 1; }
