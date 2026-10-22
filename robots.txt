@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+Disallow: /painel
 Sitemap: https://grupo-larssen.vercel.app/sitemap.xml

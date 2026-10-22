@@ -152,13 +152,13 @@
   var focoAntes = null;
   function abrirGaveta() {
     if (!gaveta) return; focoAntes = doc.activeElement;
-    gaveta.classList.add("aberta"); fundoG.classList.add("aberta"); gaveta.setAttribute("aria-hidden", "false");
+    gaveta.classList.add("aberta"); fundoG.classList.add("aberta"); gaveta.setAttribute("aria-hidden", "false"); gaveta.inert = false;
     if (lenis) lenis.stop();
     setTimeout(function () { var f = $(".fechar", gaveta); if (f) f.focus(); }, 60);
   }
   function fecharGaveta() {
     if (!gaveta || !gaveta.classList.contains("aberta")) return;
-    gaveta.classList.remove("aberta"); fundoG.classList.remove("aberta"); gaveta.setAttribute("aria-hidden", "true");
+    gaveta.classList.remove("aberta"); fundoG.classList.remove("aberta"); gaveta.setAttribute("aria-hidden", "true"); gaveta.inert = true;
     if (lenis) lenis.start();
     if (focoAntes && focoAntes.focus) focoAntes.focus();
   }

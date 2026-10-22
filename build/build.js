@@ -24,9 +24,9 @@ const dims = {};
 for (const f of fs.readdirSync(path.join(RAIZ, "img/g")).filter(f => f.endsWith(".webp"))) {
   try { const o = execFileSync("ffprobe", ["-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height", "-of", "csv=p=0", path.join(RAIZ, "img/g", f)]).toString().trim().split(","); dims[f.replace(".webp", "")] = o.map(Number); } catch (e) {}
 }
-function img(foto, alt, { sizes = "100vw", cls = "", attrs = "", carregar = "lazy" } = {}) {
+function img(foto, alt, { sizes = "100vw", cls = "", attrs = "", carregar = "lazy", prio = carregar === "eager" } = {}) {
   const b = base(foto), [w, h] = dims[b] || [1600, 1000];
-  return `<img src="img/g/${b}.webp" srcset="img/p/${b}.webp 900w, img/g/${b}.webp ${w}w" sizes="${sizes}" width="${w}" height="${h}" alt="${esc(alt)}" loading="${carregar}" decoding="async"${cls ? ` class="${cls}"` : ""}${attrs ? " " + attrs : ""}>`;
+  return `<img src="img/g/${b}.webp" srcset="img/m/${b}.webp 520w, img/p/${b}.webp 900w, img/g/${b}.webp ${w}w" sizes="${sizes}" width="${w}" height="${h}" alt="${esc(alt)}" loading="${carregar}"${prio ? ' fetchpriority="high"' : ""} decoding="async"${cls ? ` class="${cls}"` : ""}${attrs ? " " + attrs : ""}>`;
 }
 const zap = (txt) => `https://wa.me/${CONTATO.whats}?text=${encodeURIComponent(txt)}`;
 const paginaEmp = { florestal: "florestal.html", madeireira: "madeireira.html", tratadas: "madeiras-tratadas.html", transportes: "transportes.html", escavacoes: "escavacoes.html" };
@@ -64,7 +64,7 @@ function cabecalho(atual) {
 function gaveta() {
   return `
 <div class="gaveta-fundo" data-fecha-romaneio></div>
-<aside class="gaveta" role="dialog" aria-modal="true" aria-labelledby="titulo-romaneio" aria-hidden="true">
+<aside class="gaveta" role="dialog" aria-modal="true" aria-labelledby="titulo-romaneio" aria-hidden="true" inert>
   <header><div><h2 id="titulo-romaneio">Romaneio</h2><small>Sua lista de orçamento. Enviamos tudo de uma vez pelo WhatsApp.</small></div><button type="button" class="fechar" data-fecha-romaneio aria-label="Fechar romaneio">${IC.x}</button></header>
   <div class="itens" data-itens-romaneio></div>
   <footer>
@@ -97,7 +97,7 @@ function rodape() {
         <li><a href="${CONTATO.facebook}" target="_blank" rel="noopener">${IC.face}/larssenmadeireira</a></li>
       </ul></div>
     </div>
-    <div class="base"><span>© <span data-ano>2026</span> Grupo Larssen · Três Passos/RS</span><span>Madeireira Larssen · Larssen Madeiras Tratadas · Larssen Florestal · Larssen Escavações · Log Larssen Transportes</span></div>
+    <div class="base"><span>© <span data-ano>2026</span> Grupo Larssen · Três Passos/RS · <a href="privacidade.html">Política de privacidade</a></span><span>Madeireira Larssen · Larssen Madeiras Tratadas · Larssen Florestal · Larssen Escavações · Log Larssen Transportes</span></div>
   </div>
   <div class="estrada-r" aria-hidden="true"></div>
 </footer>`;
@@ -118,10 +118,10 @@ function pagina({ arquivo, titulo, descricao, corpo, kmIni = 0, kmFim = 25, imag
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fontes/BarlowCondensed-800-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fontes/Barlow-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fontes/BarlowCondensed-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fontes/Barlow-600-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fontes/fontes.css?v=${V}">
 <link rel="stylesheet" href="assets/estilo.css?v=${V}">
-${home ? `<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
-<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js">` : ""}
 <script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "Organization", name: "Grupo Larssen", url: SITE, telephone: "+55 55 3522-1635", address: { "@type": "PostalAddress", streetAddress: CONTATO.endereco, addressLocality: "Três Passos", addressRegion: "RS", postalCode: CONTATO.cep, addressCountry: "BR" }, sameAs: ["https://www.instagram.com/grupolarssen", CONTATO.facebook] })}</script>
 </head>
 <body data-km-ini="${kmIni}" data-km-fim="${kmFim}">
@@ -132,9 +132,9 @@ ${corpo}
 </main>
 ${rodape()}
 ${gaveta()}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="assets/vendor/gsap-3.12.5.min.js" defer></script>
+<script src="assets/vendor/ScrollTrigger-3.12.5.min.js" defer></script>
+<script src="assets/vendor/lenis-1.1.13.min.js" defer></script>
 <script src="assets/orcamento.js?v=${V}" defer></script>
 <script src="assets/app.js?v=${V}" defer></script>
 </body>
@@ -148,7 +148,7 @@ ${gaveta()}
 function ticket(p, { carregar = "lazy" } = {}) {
   const e = emp(linha(p.linha).empresa);
   return `<article class="ticket revela" data-linha="${p.linha}" data-empresa-id="${e.id}">
-  <div class="foto">${img(p.foto, p.nome, { sizes: "(min-width:1100px) 380px, (min-width:700px) 45vw, 92vw", carregar })}</div>
+  <div class="foto">${img(p.foto, p.nome, { sizes: "(min-width:1100px) 380px, (min-width:700px) 45vw, 92vw", carregar, prio: false })}</div>
   <div class="serrilha" aria-hidden="true"></div>
   <div class="corpo">
     <h3><a href="produto-${p.id}.html">${esc(p.nome)}</a></h3>
@@ -283,7 +283,7 @@ const paginas = [];
     </div>
     <div class="acoes-abertura"><a class="botao" href="produtos.html">${IC.romaneio} Montar orçamento</a><a class="botao zap" href="${zap("Olá, Grupo Larssen! Quero falar com um vendedor.")}" target="_blank" rel="noopener">${IC.zap} WhatsApp</a></div>
     </div>
-    <div class="frase-foto mascara">${img("madeireiralarssen_2019_08_aereas.jpg", "Vista aérea do parque industrial da Larssen em Três Passos", { sizes: "(min-width:900px) 40vw, 92vw", attrs: 'data-parallax="12"' })}<span class="marco">KM<b>2</b></span></div>
+    <div class="frase-foto mascara">${img("madeireiralarssen_2019_08_aereas.jpg", "Vista aérea do parque industrial da Larssen em Três Passos", { sizes: "(min-width:900px) 40vw, 92vw", attrs: 'data-parallax="12"', carregar: "eager" })}<span class="marco">KM<b>2</b></span></div>
   </div>
 </section>
 
@@ -352,7 +352,7 @@ for (const e of EMPRESAS) {
   const outras = EMPRESAS.filter(x => x.id !== e.id);
   const corpo = `
 <section class="capa" data-saida="${esc(e.curto)}">
-  ${img(e.foto, e.nome, { carregar: "eager", attrs: 'data-parallax="10" fetchpriority="high"' })}
+  ${img(e.foto, e.nome, { carregar: "eager", attrs: 'data-parallax="10"' })}
   <div class="miolo">
     <div class="placa placa-cab">${ICONE(e.id)}<span>Saída · KM ${e.km}</span></div><br>
     ${marca}
@@ -394,7 +394,7 @@ for (const p of PRODUTOS) {
 <section class="bloco" style="padding-top:30px" data-saida="${esc(p.nome)}">
   <div class="miolo ficha">
     <div>
-      <div class="foto-g">${img(p.foto, p.nome, { carregar: "eager", sizes: "(min-width:860px) 56vw, 92vw", attrs: 'fetchpriority="high"' })}</div>
+      <div class="foto-g">${img(p.foto, p.nome, { carregar: "eager", sizes: "(min-width:860px) 56vw, 92vw" })}</div>
       <div class="mini-rota" aria-label="Etapas por onde o produto passa">${etapas.map(s => `<span class="${p.carimbos.includes(s) ? "on" : ""}">${nomeCarimbo[s]}</span>`).join("")}</div>
       <p class="lead" style="margin-top:26px">${esc(l.texto)}</p>
     </div>
@@ -420,7 +420,7 @@ ${rel.length ? `<section class="bloco" style="background:var(--concreto)"><div c
 // ----- PROCESSO -----
 {
   const corpo = `
-<section class="capa">${img("madeireiralarssen_2019_08_aereas.jpg", "Vista aérea do parque industrial", { carregar: "eager", attrs: 'data-parallax="10" fetchpriority="high"' })}<div class="miolo"><nav class="migalhas" aria-label="Você está em"><a href="index.html">Grupo Larssen</a><span>/</span><span>Processo</span></nav><h1>Do talhão à entrega.</h1><p>Sete etapas, cinco empresas, uma estrada. Veja o que acontece com a madeira em cada quilômetro.</p></div></section>
+<section class="capa">${img("madeireiralarssen_2019_08_aereas.jpg", "Vista aérea do parque industrial", { carregar: "eager", attrs: 'data-parallax="10"' })}<div class="miolo"><nav class="migalhas" aria-label="Você está em"><a href="index.html">Grupo Larssen</a><span>/</span><span>Processo</span></nav><h1>Do talhão à entrega.</h1><p>Sete etapas, cinco empresas, uma estrada. Veja o que acontece com a madeira em cada quilômetro.</p></div></section>
 <section class="bloco"><div class="miolo">${ETAPAS.map((et, i) => { const e = et.empresa ? emp(et.empresa) : null; return `<div class="saida" data-saida="${esc(et.nome)}"><div class="colagem" style="aspect-ratio:16/11"><div class="placa placa-saida">${e ? ICONE(e.id) : ""}<span>KM ${et.km}<b>${esc(et.nome)}</b></span></div><div class="f1 mascara" style="inset:0">${img(et.foto, et.nome, { sizes: "(min-width:900px) 46vw, 92vw", attrs: 'data-parallax="10"' })}</div></div><div class="revela"><h2 style="font-size:clamp(2rem,4vw,3.2rem);margin-bottom:16px">${esc(et.nome)}</h2><p class="lead">${esc(et.texto)}</p>${e ? `<a class="link-seta" href="${paginaEmp[e.id]}">${esc(e.nome)} ${IC.seta}</a>` : ""}</div></div>`; }).join("")}</div></section>
 <section class="autoclave bloco" data-autoclave data-saida="Autoclave"><div class="miolo"><div class="cabeca"><h2>Seis estações dentro da autoclave.</h2><p class="lead">Após o preparo e a secagem, a madeira passa por ciclos de vácuo e pressão até a completa saturação das fibras com CCA tipo C.</p></div><div class="auto-grade"><div class="auto-palco">${desenhoAutoclave()}</div><div class="estacoes">${AUTOCLAVE.map(([t, d], i) => `<div class="estacao${i === 0 ? " on" : ""}"><span class="n">${i + 1}</span><h3>${t}</h3><p>${d}</p></div>`).join("")}</div></div><div class="cca"><div><b>C</b><span>Cromo: fixador. Prende os ingredientes ativos nas fibras de forma insolúvel.</span></div><div><b>C</b><span>Cobre: fungicida. Retarda a ação dos fungos apodrecedores.</span></div><div><b>A</b><span>Arsênio: inseticida. Imuniza contra insetos xilófagos, como cupim e broca.</span></div></div></div></section>
 <section class="bloco"><div class="miolo grade-2"><div class="revela"><h2>Por que tratar a madeira?</h2></div><div class="revela">${listaServicos([["Contra fungos e insetos", "Previne o ataque de agentes biológicos, cupins e brocas."], ["Contra o tempo", "Mais resistência ao sol, à chuva e à umidade."], ["Direto no solo", "A madeira pode ficar em contato direto com a terra."], ["Acabamento que dura", "Vernizes e stains duram mais sobre a madeira tratada."]])}<p style="margin-top:12px">O resultado são produtos ambientalmente adequados, com qualidade, durabilidade e segurança: a solução preservativa aumenta a durabilidade da madeira em mais de dez vezes.</p></div></div></section>
@@ -431,7 +431,7 @@ ${chamadaFinal()}`;
 // ----- SUSTENTABILIDADE -----
 {
   const corpo = `
-<section class="capa">${img("larssenmadeirastratadas_2020_02_reflorestamento.jpg", "Área de reflorestamento", { carregar: "eager", attrs: 'data-parallax="10" fetchpriority="high"' })}<div class="miolo"><nav class="migalhas" aria-label="Você está em"><a href="index.html">Grupo Larssen</a><span>/</span><span>Sustentabilidade</span></nav><h1>Madeira que volta a crescer.</h1><p>Produtividade e consumo consciente de madeira e seus subprodutos, respeitando a legislação e em harmonia com o meio ambiente.</p></div></section>
+<section class="capa">${img("larssenmadeirastratadas_2020_02_reflorestamento.jpg", "Área de reflorestamento", { carregar: "eager", attrs: 'data-parallax="10"' })}<div class="miolo"><nav class="migalhas" aria-label="Você está em"><a href="index.html">Grupo Larssen</a><span>/</span><span>Sustentabilidade</span></nav><h1>Madeira que volta a crescer.</h1><p>Produtividade e consumo consciente de madeira e seus subprodutos, respeitando a legislação e em harmonia com o meio ambiente.</p></div></section>
 <section class="bloco" data-saida="Compromisso"><div class="miolo grade-2"><div class="revela"><h2>Três pilares: social, ambiental e econômico.</h2></div><div class="revela"><p class="lead">O compromisso começa nas boas práticas do manejo florestal. Quando é reflorestada, a madeira é mais correta do ponto de vista ambiental do que qualquer outra matéria-prima da construção civil.</p><div class="numeros"><div><b class="num" data-conta="500" data-suf=" ha">500 ha</b><span>de reflorestamento só para extração</span></div><div><b class="num">10x</b><span>mais vida útil com o tratamento</span></div><div><b class="num">100%</b><span>da biomassa reaproveitada como produto</span></div></div></div></div></section>
 <section class="faixa-foto">${img("madeireiralarssen_2019_08_responsabilidade.jpg", "Floresta plantada", { attrs: 'data-parallax="12"' })}<div class="miolo"><h2>Florestamento, reflorestamento e nativas.</h2><div class="tres"><div><b>Florestamento</b><span>Implantação de florestas com mudas em áreas que não eram florestadas há pelo menos 50 anos.</span></div><div><b>Reflorestamento</b><span>Replantio de espécies de qualidade, como pinus e eucalipto, só para fins de extração.</span></div><div><b>Preservação de nativas</b><span>Conservação de plantas do ecossistema, com benefícios para a biodiversidade.</span></div></div></div></section>
 <section class="bloco" data-saida="Subprodutos"><div class="miolo"><div class="cabeca"><h2>Nada se perde na serraria.</h2><p class="lead">O que sobra do corte vira produto: maravalha e serragem para a pecuária, cavaco para gerar energia limpa nas caldeiras.</p></div><div class="grade-romaneio">${["maravalha-aviario", "compost-barn", "cama-cavalos", "cavaco"].map(id => ticket(PRODUTOS.find(p => p.id === id))).join("")}</div></div></section>
@@ -448,7 +448,7 @@ ${chamadaFinal()}`;
     ["2025", "55 anos", "O grupo completa 55 anos construindo histórias, com floresta, serraria, tratamento, transporte e escavações."],
   ];
   const corpo = `
-<section class="capa">${img("madeireiralarssen_2019_08_empresa3.jpg", "Parque industrial da Madeireira Larssen", { carregar: "eager", attrs: 'data-parallax="10" fetchpriority="high"' })}<div class="miolo"><nav class="migalhas" aria-label="Você está em"><a href="index.html">Grupo Larssen</a><span>/</span><span>Sobre</span></nav><h1>Desde 1970 na mesma estrada.</h1><p>Um grupo familiar de Três Passos/RS que cresceu acompanhando a madeira: do plantio à obra.</p></div></section>
+<section class="capa">${img("madeireiralarssen_2019_08_empresa3.jpg", "Parque industrial da Madeireira Larssen", { carregar: "eager", attrs: 'data-parallax="10"' })}<div class="miolo"><nav class="migalhas" aria-label="Você está em"><a href="index.html">Grupo Larssen</a><span>/</span><span>Sobre</span></nav><h1>Desde 1970 na mesma estrada.</h1><p>Um grupo familiar de Três Passos/RS que cresceu acompanhando a madeira: do plantio à obra.</p></div></section>
 <section class="bloco" data-saida="História"><div class="miolo grade-2"><div class="revela"><h2>Linha do tempo</h2><p class="lead" style="margin-top:18px">A Larssen Florestal e a Larssen Escavações completam a rota: uma começa antes da serraria, a outra termina na obra.</p></div><div class="tempo revela">${marcos.map(([a, t, d]) => `<div class="marco-t"><span class="ano num">${a}</span><div><h3>${t}</h3><p>${d}</p></div></div>`).join("")}</div></div></section>
 <section class="bloco" style="background:var(--concreto)" data-saida="Números"><div class="miolo"><div class="cabeca"><h2>Estrutura</h2><p class="lead">Ao longo dos anos o grupo ajustou processos e estrutura para cobrir todas as fases da produção e da logística.</p></div><div class="numeros revela"><div><b class="num" data-conta="47000" data-suf=" m²">47.000 m²</b><span>de área total</span></div><div><b class="num" data-conta="11000" data-suf=" m²">11.000 m²</b><span>de área coberta</span></div><div><b class="num" data-conta="100" data-suf=" m³">100 m³</b><span>de produção por dia</span></div><div><b class="num" data-conta="50">50</b><span>colaboradores na madeireira</span></div><div><b class="num" data-conta="500" data-suf=" ha">500 ha</b><span>de reflorestamento</span></div></div></div></section>
 <section class="bloco" data-saida="Missão"><div class="miolo"><div class="grade-2"><div class="revela"><h3 style="font-size:32px;margin-bottom:12px">Missão</h3><p>Oferecer produtos e serviços com qualidade e segurança, com responsabilidade social e ambiental, atendendo com excelência aos nossos clientes.</p><h3 style="font-size:32px;margin:28px 0 12px">Visão</h3><p>Ser referência no setor da transformação de madeiras, fornecendo produtos de alta qualidade, com ética, transparência e competência, buscando aprimoramento contínuo junto das certificações ambientais.</p></div><div class="revela"><h3 style="font-size:32px;margin-bottom:12px">Valores</h3>${listaServicos([["Clientes", "Atenção às solicitações e necessidades de clientes e consumidores."], ["Fábrica", "Busca pela excelência nos produtos."], ["Marca", "Desenvolvimento constante do negócio e valorização da marca."], ["Pessoas", "Saúde e segurança dos colaboradores, transparência nas relações, desenvolvimento pessoal e profissional, criatividade e participação de todos."], ["Parceiros", "Trabalho junto a Ibama, Prefeitura e Sindicato, atendendo todas as normas."]])}</div></div></div></section>
@@ -481,6 +481,7 @@ ${chamadaFinal()}`;
       <div class="campo"><label for="c-msg">Mensagem</label><textarea id="c-msg" name="mensagem" rows="4" required placeholder="Ex.: preciso de 40 mourões tratados para entrega em Ijuí."></textarea></div>
       <p class="erro" role="alert"></p>
       <button class="botao zap" type="submit" style="justify-content:center">${IC.zap} Enviar no WhatsApp</button>
+      <p class="nota-lgpd">A mensagem abre no seu WhatsApp, pronta para enviar. Nenhum dado fica guardado neste site. <a href="privacidade.html">Política de privacidade</a></p>
     </form>
     <div class="mapa-emb"><iframe title="Mapa: ${CONTATO.endereco}, Três Passos/RS" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=${mapaQ}&z=15&output=embed"></iframe></div>
   </div>
@@ -501,11 +502,15 @@ ${chamadaFinal()}`;
     <div class="campo"><label for="r-obs">Observações</label><textarea id="r-obs" name="obs" rows="4" placeholder="Medidas, quantidade em m³ ou peças, prazo…"></textarea></div>
     <p class="erro" role="alert"></p>
     <button class="botao zap" type="submit" data-enviar-romaneio style="justify-content:center">${IC.zap} Enviar no WhatsApp</button>
+    <p class="nota-lgpd">O pedido abre no seu WhatsApp, pronto para enviar. A lista fica só no seu navegador. <a href="privacidade.html">Política de privacidade</a></p>
     <a class="link-seta" href="produtos.html">Adicionar mais produtos ${IC.seta}</a>
   </form>
 </div></section>`;
   paginas.push(pagina({ arquivo: "orcamento.html", titulo: "Romaneio de orçamento · Grupo Larssen", descricao: "Junte os produtos do Grupo Larssen e envie o pedido de orçamento pelo WhatsApp.", corpo }));
 }
+
+// ----- PRIVACIDADE -----
+paginas.push(pagina({ arquivo: "privacidade.html", titulo: "Política de privacidade · Grupo Larssen", descricao: "Como o site do Grupo Larssen trata os seus dados, conforme a LGPD: sem cadastro, sem rastreamento e com mensagens que abrem no seu WhatsApp.", corpo: require("./privacidade.js")({ CONTATO, esc }) }));
 
 // ----- 404 -----
 paginas.push(pagina({ arquivo: "404.html", titulo: "Página não encontrada · Grupo Larssen", descricao: "Essa página saiu da rota. Volte ao início do site do Grupo Larssen ou procure no catálogo de produtos.", corpo: `<section class="capa clara" style="min-height:80vh"><div class="miolo"><span class="marco" style="margin-bottom:24px">KM<b>404</b></span><h1>Essa estrada não existe.</h1><p>O endereço pode ter mudado. Volte para a rota principal ou procure no catálogo.</p><p style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px"><a class="botao" href="index.html">Voltar ao início</a><a class="botao linha" href="produtos.html">Ver produtos</a></p></div></section>` }));
@@ -514,5 +519,5 @@ paginas.push(pagina({ arquivo: "404.html", titulo: "Página não encontrada · G
 fs.copyFileSync(path.join(__dirname, "orcamento.js"), path.join(RAIZ, "assets/orcamento.js"));
 { const t = fs.readFileSync(path.join(RAIZ, "assets/logos/icone-madeireira.svg"), "utf8"); const [x, y, w, h] = t.match(/viewBox="([^"]+)"/)[1].split(" ").map(Number); const m = Math.max(w, h) * 0.28, L = Math.max(w, h) + m * 2; const d = arred(t.match(/ d="([^"]+)"/)[1]); fs.writeFileSync(path.join(RAIZ, "assets/favicon.svg"), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${(x + w / 2 - L / 2).toFixed(1)} ${(y + h / 2 - L / 2).toFixed(1)} ${L.toFixed(1)} ${L.toFixed(1)}"><rect x="${(x + w / 2 - L / 2).toFixed(1)}" y="${(y + h / 2 - L / 2).toFixed(1)}" width="${L.toFixed(1)}" height="${L.toFixed(1)}" rx="${(L * 0.2).toFixed(1)}" fill="#54763A"/><path fill="#fff" fill-rule="evenodd" d="${d}"/></svg>`); }
 fs.writeFileSync(path.join(RAIZ, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${paginas.filter(p => p !== "404.html").map(p => `<url><loc>${SITE}/${p === "index.html" ? "" : p}</loc></url>`).join("")}</urlset>\n`);
-fs.writeFileSync(path.join(RAIZ, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\n`);
+fs.writeFileSync(path.join(RAIZ, "robots.txt"), `User-agent: *\nAllow: /\nDisallow: /painel\nSitemap: ${SITE}/sitemap.xml\n`);
 console.log("páginas geradas:", paginas.length);

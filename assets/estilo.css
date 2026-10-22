@@ -684,3 +684,36 @@ a.canal:hover { transform: translateY(-2px); box-shadow: var(--sombra-baixa); }
 .abertura .frase-grande .p.dado { color: var(--verde); }
 .acoes-abertura { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
 .abertura .frase-foto { aspect-ratio: 4 / 4.6; }
+
+/* ===== Rota da madeira (22/10): a seção presa na tela cabe inteira em qualquer altura (notebook, Windows em 125%) =====
+   antes o título + fotos ocupavam a tela e a descrição de cada etapa e a estrada ficavam cortadas embaixo */
+@media (min-width: 761px) {
+  .rota-h { height: 100vh; height: 100svh; display: flex; flex-direction: column; position: relative; }
+  .rota-h .cabeca-r { padding-top: clamp(28px, 6vh, 96px); margin-bottom: clamp(14px, 3vh, 40px); flex: none; }
+  .rota-h .cabeca h2 { font-size: clamp(2rem, min(4.6vw, 7.4vh), 4.4rem); line-height: 1; }
+  .rota-h .cabeca .lead { font-size: clamp(15px, min(1.3vw, 2.3vh), 19px); }
+  .rota-h .cabeca.com-marco > div { gap: clamp(10px, 2vh, 22px); }
+  .rota-h .janela { flex: 1; min-height: 0; }
+  .parada { width: clamp(240px, min(34vw, calc((100svh - 470px) * 1.6)), 500px); padding-bottom: 0; gap: clamp(6px, 1.2vh, 12px); }
+  .parada h3 { font-size: clamp(1.5rem, min(2.6vw, 4.2vh), 2.4rem); }
+  .parada p { font-size: clamp(14px, min(1.15vw, 2vh), 17px); }
+  .estrada-h { bottom: clamp(14px, 3.5vh, 44px); }
+}
+
+/* ===== LGPD (22/10) ===== */
+.nota-lgpd { margin: 4px 0 0; font-size: 13px; line-height: 1.5; color: var(--tinta-2); }
+.nota-lgpd a, .rodape .base a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.texto-legal { max-width: 78ch; }
+.texto-legal h2 { font-size: clamp(1.6rem, 2.4vw, 2.1rem); margin: 38px 0 12px; }
+.texto-legal h2:first-child { margin-top: 0; }
+.texto-legal p, .texto-legal li { font-size: 17px; line-height: 1.65; color: var(--tinta-2); }
+.texto-legal ul { padding-left: 1.2em; display: grid; gap: 8px; }
+.texto-legal a { color: var(--verde, #54763A); }
+.texto-legal b { color: var(--tinta); }
+
+/* ===== acessibilidade (22/10): contraste das estações da autoclave sobre o verde ===== */
+.estacao .n, .estacao h3 { opacity: 1; }
+.estacao h3 { color: #DCE6D3; }
+.estacao.on h3 { color: #fff; }
+.estacao:not(.on) .n { opacity: .8; }
+.estacao p { color: #fff; }
