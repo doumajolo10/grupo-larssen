@@ -68,7 +68,7 @@
       var extras = (p.fotos || []).filter(Boolean);
       return '<div class="ficha-produto" data-ficha="' + esc(p.id) + '">\n' +
         '<section class="capa clara" style="min-height:0;padding-bottom:0"><div class="miolo" style="padding-bottom:30px"><nav class="migalhas" aria-label="Você está em"><a href="index.html">Grupo Larssen</a><span>/</span><a href="produtos.html">Produtos</a><span>/</span><a href="produtos.html#' + l.id + '">' + esc(l.nome) + "</a></nav><h1>" + esc(p.nome) + "</h1></div></section>\n" +
-        '<section class="bloco" style="padding-top:30px" data-saida="' + esc(p.nome) + '">\n' +
+        '<section class="bloco" style="padding-top:30px" data-saida="Ficha">\n' +
         '  <div class="miolo ficha">\n' +
         "    <div>\n" +
         '      <div class="foto-g">' + img(p.foto, p.nome, { carregar: "eager", sizes: "(min-width:860px) 56vw, 92vw" }) + "</div>\n" +
@@ -79,7 +79,7 @@
         "    </div>\n" +
         '    <article class="ticket">\n' +
         '      <div class="corpo" style="padding-top:18px">\n' +
-        '        <h2 style="font-size:34px">' + esc(p.nome) + "</h2>\n" +
+        '        <h2 class="tit-ficha">Ficha técnica</h2>\n' +
         '        <table class="tabela-bitolas"><tbody>\n' +
         '          <tr><th scope="row">Uso</th><td>' + esc(p.uso) + "</td></tr>\n" +
         '          <tr><th scope="row">Madeira</th><td>' + esc(p.madeira) + "</td></tr>\n" +

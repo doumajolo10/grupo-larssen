@@ -26,7 +26,7 @@ const espera = ms => new Promise(r => setTimeout(r, ms));
       const p = await nova(w, h, movel);
       await p.goto(BASE, { waitUntil: "networkidle2", timeout: 60000 }); await espera(4600);
       await p.screenshot({ path: `${SAIDA}/${nome}-00-topo.png` });
-      const heroH = await p.evaluate(() => document.querySelector(".hero3d").offsetHeight);
+      const heroH = await p.evaluate(() => (document.querySelector(".hero3d")||{offsetHeight:0}).offsetHeight);
       for (const k of [0.3, 0.6, 0.95]) { await rolar(p, (heroH - h) * k); await p.screenshot({ path: `${SAIDA}/${nome}-01-hero-${k}.png` }); }
       const H = await p.evaluate(() => document.documentElement.scrollHeight);
       let i = 2;

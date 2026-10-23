@@ -303,7 +303,7 @@ const paginas = [];
   <div class="miolo">
     <div class="cabeca com-marco"><span class="marco">KM<b>2–11</b></span><div><h2 id="t-cat">Do dormente à maravalha, em bitolas de verdade.</h2><p class="lead">Cada produto mostra medidas, espécie e as etapas por onde passou. Junte os que precisa no romaneio e mande tudo de uma vez.</p></div></div>
     <div class="grade-romaneio" data-vivo="destaques">${destaque}</div>
-    <p style="margin-top:36px"><a class="botao verde" href="produtos.html">Ver os <span data-n-produtos>${PRODUTOS.length}</span> produtos ${IC.seta}</a></p>
+    <p style="margin-top:36px"><a class="botao verde" href="produtos.html"><span>Ver os <span data-n-produtos>${PRODUTOS.length}</span> produtos</span> ${IC.seta}</a></p>
   </div>
 </section>
 

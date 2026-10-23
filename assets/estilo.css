@@ -727,3 +727,39 @@ a.canal:hover { transform: translateY(-2px); box-shadow: var(--sombra-baixa); }
 .fotos-extras { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
 .fotos-extras a { width: 92px; aspect-ratio: 4 / 3; border-radius: 10px; overflow: hidden; display: block; box-shadow: var(--sombra); }
 .fotos-extras img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ===== acabamento de design (22/10) ===== */
+/* números da abertura: grade 2×2 alinhada, número em cima e legenda embaixo */
+.dados-linha { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 32px; max-width: 520px; }
+.dados-linha div { flex-direction: column; align-items: flex-start; gap: 6px; min-width: 0; }
+.dados-linha span { font-size: 15px; line-height: 1.3; }
+/* celular: a foto aérea sobe para logo abaixo do título (antes ficava abaixo da dobra) */
+@media (max-width: 900px) {
+  .abertura { padding-top: 104px; }
+  .abertura .frase-grade { display: flex; flex-direction: column; align-items: stretch; gap: 0; }
+  .abertura .frase-grade > div:first-child { display: contents; }
+  .abertura .titulo-abertura { order: 1; margin-bottom: 18px; }
+  .abertura .frase-foto { order: 2; aspect-ratio: 16 / 10; margin-bottom: 26px; }
+  .abertura .frase-grande, .abertura .dados-linha, .abertura .acoes-abertura { order: 3; }
+  .abertura .dados-linha { margin-top: 32px; gap: 18px 20px; }
+  .dados-linha b { font-size: 34px; }
+}
+/* ticket: a pauta de fundo brigava com as linhas da tabela e das bitolas (linhas duplas); fica só a linha de cada item */
+.ticket .corpo { background: none; }
+.ticket .bitolas li:last-child { border-bottom: 0; }
+/* ficha do produto: título da capa no tamanho da página e cabeçalho da ficha como rótulo */
+.ficha-produto .capa h1 { font-size: clamp(2.6rem, 5vw, 4.4rem); max-width: 20ch; }
+.ticket .tit-ficha { font: 700 13px/1 var(--fonte-placa); letter-spacing: .14em; text-transform: uppercase; color: var(--tinta-3); padding-bottom: 12px; border-bottom: 2px solid var(--tinta); margin: 0; }
+/* rodapé no celular: empresas e navegação lado a lado */
+@media (max-width: 560px) {
+  .rodape .grade-r { grid-template-columns: 1fr 1fr; gap: 34px 18px; }
+  .rodape .grade-r > :first-child, .rodape .grade-r > :last-child { grid-column: 1 / -1; }
+  .rodape ul { font-size: 15px; }
+  .rodape ul svg { width: 18px; height: 18px; }
+}
+@media (min-width: 901px) {
+  .abertura { padding-top: clamp(110px, 13vh, 170px); }
+  .abertura .dados-linha { margin-top: 32px; gap: 16px 32px; }
+  .abertura .dados-linha b { font-size: 36px; }
+  .abertura .acoes-abertura { margin-top: 28px; }
+}
