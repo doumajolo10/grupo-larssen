@@ -20,7 +20,7 @@ ${sec("Com quem os dados são compartilhados", `<ul>
 <li><b>Vercel Inc.</b>: hospedagem do site (registros técnicos de acesso).</li>
 <li><b>WhatsApp (Meta)</b>: somente se você escolher enviar a mensagem por lá, conforme os termos do próprio WhatsApp.</li>
 <li><b>Google</b>: a página de contato mostra o mapa do Google Maps com o endereço de atendimento. Ao exibir o mapa, o Google recebe dados técnicos do seu acesso, conforme a política de privacidade do próprio Google.</li>
-<li><b>Supabase</b>: guarda o cadastro dos produtos exibidos no catálogo. Não recebe dados de visitantes.</li>
+<li><b>Supabase</b>: guarda o cadastro dos produtos exibidos no catálogo. Quando o catálogo carrega, recebe só os dados técnicos da conexão (como o endereço IP); nenhum dado que você digita no site vai para lá.</li>
 <li>Autoridades públicas, quando houver obrigação legal ou ordem judicial.</li>
 </ul>
 <p>O Grupo Larssen não vende nem aluga dados pessoais.</p>`)}
