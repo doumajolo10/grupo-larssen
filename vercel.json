@@ -84,5 +84,469 @@
       "source": "/painel",
       "destination": "/painel/index.html"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/quem-somos",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/sobre.html",
+      "permanent": true
+    },
+    {
+      "source": "/quem-somos/",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/sobre.html",
+      "permanent": true
+    },
+    {
+      "source": "/produtos",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html",
+      "permanent": true
+    },
+    {
+      "source": "/sustentabilidade",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/sustentabilidade.html",
+      "permanent": true
+    },
+    {
+      "source": "/sustentabilidade/",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/sustentabilidade.html",
+      "permanent": true
+    },
+    {
+      "source": "/fale-conosco",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/contato.html",
+      "permanent": true
+    },
+    {
+      "source": "/fale-conosco/",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/contato.html",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/madeira-bruta",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#bruta",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/madeira-bruta/",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#bruta",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/madeira-beneficiada",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#beneficiada",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/madeira-beneficiada/",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#beneficiada",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/casas-de-madeira",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#casas",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/casas-de-madeira/",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#casas",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/agronegocio",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#agro",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/agronegocio/",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#agro",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/industria",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#industria",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/industria/",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#industria",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/diversos",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/diversos/",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html",
+      "permanent": true
+    },
+    {
+      "source": "/:caminho*",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/",
+      "permanent": true
+    },
+    {
+      "source": "/quem-somos",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/sobre.html",
+      "permanent": true
+    },
+    {
+      "source": "/quem-somos/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/sobre.html",
+      "permanent": true
+    },
+    {
+      "source": "/produtos",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html",
+      "permanent": true
+    },
+    {
+      "source": "/sustentabilidade",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/sustentabilidade.html",
+      "permanent": true
+    },
+    {
+      "source": "/sustentabilidade/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/sustentabilidade.html",
+      "permanent": true
+    },
+    {
+      "source": "/fale-conosco",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/contato.html",
+      "permanent": true
+    },
+    {
+      "source": "/fale-conosco/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/contato.html",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/madeira-bruta",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#bruta",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/madeira-bruta/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#bruta",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/madeira-beneficiada",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#beneficiada",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/madeira-beneficiada/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#beneficiada",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/casas-de-madeira",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#casas",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/casas-de-madeira/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#casas",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/agronegocio",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#agro",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/agronegocio/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#agro",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/industria",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#industria",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/industria/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html#industria",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/diversos",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html",
+      "permanent": true
+    },
+    {
+      "source": "/produtos/diversos/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/produtos.html",
+      "permanent": true
+    },
+    {
+      "source": "/:caminho*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/",
+      "permanent": true
+    }
   ]
 }
