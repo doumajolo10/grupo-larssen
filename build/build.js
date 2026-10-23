@@ -431,8 +431,7 @@ ${chamadaFinal()}`;
     <div class="canais">
       <a class="canal" href="${zap("Olá, Grupo Larssen!")}" target="_blank" rel="noopener"><span class="ic">${IC.zap}</span><span><b>WhatsApp de vendas</b><span>${CONTATO.whatsTexto}</span></span></a>
       <a class="canal" href="${CONTATO.telLink}"><span class="ic">${IC.tel}</span><span><b>Ligar</b><span>${CONTATO.telefone}</span></span></a>
-      <a class="canal" href="mailto:${CONTATO.emails.madeireira}"><span class="ic">${IC.email}</span><span><b>Madeireira</b><span>${CONTATO.emails.madeireira}</span></span></a>
-      <a class="canal" href="mailto:${CONTATO.emails.tratadas}"><span class="ic">${IC.email}</span><span><b>Madeiras Tratadas</b><span>${CONTATO.emails.tratadas}</span></span></a>
+      <a class="canal" href="mailto:${CONTATO.emails.madeireira}"><span class="ic">${IC.email}</span><span><b>E-mail</b><span>${CONTATO.emails.madeireira}</span></span></a>
       <a class="canal" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("Larssen Madeiras Tratadas, " + CONTATO.endereco + ", Três Passos, RS")}" target="_blank" rel="noopener"><span class="ic">${IC.pino}</span><span><b>Atendimento: ${CONTATO.localAtendimento}</b><span>${CONTATO.endereco}, ${CONTATO.bairro}, CEP ${CONTATO.cep}, ${CONTATO.cidade}</span></span></a>
       <a class="canal" href="https://www.instagram.com/grupolarssen" target="_blank" rel="noopener"><span class="ic">${IC.insta}</span><span><b>Instagram</b><span>@grupolarssen</span></span></a>
     </div>
