@@ -4,7 +4,7 @@ const fs = require("fs"), path = require("path"), { execFileSync } = require("ch
 const { CONTATO, EMPRESAS, LINHAS, PRODUTOS, ETAPAS, AUTOCLAVE, ESTADOS } = require("./dados.js");
 const IC = require("./icones.js");
 const RAIZ = path.join(__dirname, "..");
-const SITE = "https://grupo-larssen.vercel.app"; // trocar pelo domínio final
+const SITE = "https://grupolarssen.com.br";
 // versão dos assets (cache): muda só quando o conteúdo muda, para a rotina do painel não regravar tudo à toa
 const V = require("crypto").createHash("sha1").update(["assets/estilo.css", "assets/app.js", "assets/vivo.js", "assets/modelo-produtos.js", "build/orcamento.js", "fontes/fontes.css", "painel/painel.js", "painel/painel.css"].map(f => fs.readFileSync(path.join(RAIZ, f))).join("")).digest("hex").slice(0, 8);
 

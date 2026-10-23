@@ -5,7 +5,7 @@
   "use strict";
   const S = { url: "https://cwsjddppdogvyitspbfr.supabase.co", chave: "sb_publishable_zpNPLwlPqkOR6pnvrxRGHw_78r3siqN", tabela: "larssen_produtos", balde: "larssen-fotos" };
   const DEMO = /[?&]demo\b/.test(location.search);
-  const SITE_PUB = /grupolarssen\.com\.br|grupo-larssen\.vercel\.app|localhost|127\.0\.0\.1/.test(location.host) ? location.origin : "https://grupo-larssen.vercel.app";
+  const SITE_PUB = /grupolarssen\.com\.br|grupo-larssen\.vercel\.app|localhost|127\.0\.0\.1/.test(location.host) ? location.origin : "https://grupolarssen.com.br";
   // no endereço próprio do painel (painel.dominio) a barra mostra só a raiz
   if (/^painel\./.test(location.hostname) && location.pathname !== "/") history.replaceState(null, "", "/" + location.search + location.hash);
   const $ = (s, r) => (r || document).querySelector(s);
