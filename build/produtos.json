@@ -1,0 +1,886 @@
+[
+ {
+  "id": "dormentes",
+  "linha": "bruta",
+  "nome": "Dormentes",
+  "uso": "Linhas férreas",
+  "madeira": "Eucalipto",
+  "bitolas": [
+   "Bitola métrica: 0,16 × 0,22 × 2,00 m",
+   "Bitola larga: 0,17 × 0,24 × 2,80 m",
+   "Bitolas especiais"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria"
+  ],
+  "foto": "madeireiralarssen_2019_08_dormentes.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 10,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "vigas",
+  "linha": "bruta",
+  "nome": "Vigas",
+  "uso": "Pontes, estruturas e barracões",
+  "madeira": "Eucalipto",
+  "bitolas": [
+   "Medidas diversas"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria"
+  ],
+  "foto": "madeireiralarssen_2019_08_vigas-pontes.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 20,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "mouroes",
+  "linha": "bruta",
+  "nome": "Mourões",
+  "uso": "Palanques para cerca",
+  "madeira": "Eucalipto",
+  "bitolas": [
+   "16 × 21 × 220 cm"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria"
+  ],
+  "foto": "madeireiralarssen_2020_09_mouroes.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 5,
+  "ativo": true,
+  "ordem": 30,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "mouroes-rolicos",
+  "linha": "bruta",
+  "nome": "Mourões roliços",
+  "uso": "Pergolados, postes de cerca, aviários, galpões, estufas e parreirais",
+  "madeira": "Eucalipto",
+  "bitolas": [
+   "Bitolas diversas"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria"
+  ],
+  "foto": "madeireiralarssen_2020_09_estacas.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 40,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "tramas",
+  "linha": "bruta",
+  "nome": "Tramas",
+  "uso": "Tramas para cercas",
+  "madeira": "Eucalipto",
+  "bitolas": [
+   "5 × 5 cm"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria"
+  ],
+  "foto": "madeireiralarssen_2019_08_trama.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 50,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "ripas",
+  "linha": "bruta",
+  "nome": "Ripas",
+  "uso": "Ripamento de telhados",
+  "madeira": "Pinus e eucalipto",
+  "bitolas": [
+   "2,5 × 5 cm",
+   "2,7 × 5 cm",
+   "2,5 × 7 cm"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria"
+  ],
+  "foto": "madeireiralarssen_2020_09_ripas.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 60,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "pranchas",
+  "linha": "bruta",
+  "nome": "Pranchas",
+  "uso": "Assoalho de pontes, escadarias e estruturas robustas",
+  "madeira": "Pinus e madeira nativa",
+  "bitolas": [
+   "5 cm",
+   "8 cm"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria"
+  ],
+  "foto": "madeireiralarssen_2020_09_prancha-1.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 70,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "tabuas",
+  "linha": "bruta",
+  "nome": "Tábuas",
+  "uso": "Amplo uso na construção civil",
+  "madeira": "Pinus e eucalipto",
+  "bitolas": [
+   "Larguras 20, 25 e 30 cm"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria"
+  ],
+  "foto": "madeireiralarssen_2020_09_tabuas.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 80,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "esteios",
+  "linha": "bruta",
+  "nome": "Esteios",
+  "uso": "Pergolados e sustentação de casas",
+  "madeira": "Nativa, eucalipto ou pinus autoclavado",
+  "bitolas": [
+   "10 × 10 cm",
+   "12 × 12 cm",
+   "15 × 15 cm",
+   "20 × 20 cm"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria"
+  ],
+  "foto": "madeireiralarssen_2020_09_esteios.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 90,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "guias",
+  "linha": "bruta",
+  "nome": "Guias",
+  "uso": "Tesouras, andaimes e escoramento",
+  "madeira": "Eucalipto e pinus",
+  "bitolas": [
+   "Larguras 10, 12 e 15 cm"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria"
+  ],
+  "foto": "madeireiralarssen_2020_09_guias.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 100,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "escoras",
+  "linha": "bruta",
+  "nome": "Escoras",
+  "uso": "Escoramento de laje",
+  "madeira": "Eucalipto",
+  "bitolas": [
+   "Bitolas diversas"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria"
+  ],
+  "foto": "madeireiralarssen_2020_09_escoras.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 110,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "cortes-especiais",
+  "linha": "bruta",
+  "nome": "Cortes especiais",
+  "uso": "Sob pedido do cliente, variando bitola e comprimento",
+  "madeira": "Diversas",
+  "bitolas": [
+   "Bitolas e comprimentos sob medida"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria"
+  ],
+  "foto": "madeireiralarssen_2020_09_cortes-especiais.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 120,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "assoalhos",
+  "linha": "beneficiada",
+  "nome": "Assoalhos",
+  "uso": "Pisos residenciais e comerciais",
+  "madeira": "Pinus e eucalipto",
+  "bitolas": [
+   "8 cm × comprimento variável"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria",
+   "beneficiamento"
+  ],
+  "foto": "madeireiralarssen_2020_09_assoalho.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 4,
+  "ativo": true,
+  "ordem": 130,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "paredes",
+  "linha": "beneficiada",
+  "nome": "Paredes",
+  "uso": "Aplicação horizontal e vertical",
+  "madeira": "Pinus e eucalipto",
+  "bitolas": [
+   "8 e 10 cm × comprimento variado"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria",
+   "beneficiamento"
+  ],
+  "foto": "madeireiralarssen_2020_09_parede.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 140,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "decks-beneficiados",
+  "linha": "beneficiada",
+  "nome": "Decks",
+  "uso": "Entorno de piscinas, áreas de circulação e elevados",
+  "madeira": "Nativa, pinus e eucalipto",
+  "bitolas": [
+   "9 cm × variado"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria",
+   "beneficiamento"
+  ],
+  "foto": "madeireiralarssen_2020_09_decks.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 150,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "divisorias",
+  "linha": "beneficiada",
+  "nome": "Divisórias",
+  "uso": "Divisão interna de cômodos",
+  "madeira": "Pinus",
+  "bitolas": [
+   "12 × 270 cm"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria",
+   "beneficiamento"
+  ],
+  "foto": "madeireiralarssen_2020_09_divisoria.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 160,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "forros",
+  "linha": "beneficiada",
+  "nome": "Forros",
+  "uso": "Teto e beirais",
+  "madeira": "Pinus, eucalipto ou nativa",
+  "bitolas": [
+   "Bitolas diversas"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria",
+   "beneficiamento"
+  ],
+  "foto": "madeireiralarssen_2020_09_forro.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 170,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "rodape",
+  "linha": "beneficiada",
+  "nome": "Rodapé",
+  "uso": "Acabamento final do assoalho",
+  "madeira": "Pinus ou cedro",
+  "bitolas": [
+   "Bitolas diversas"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria",
+   "beneficiamento"
+  ],
+  "foto": "madeireiralarssen_2020_09_rodape.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 180,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "cimalha",
+  "linha": "beneficiada",
+  "nome": "Cimalha",
+  "uso": "Acabamento final do forro",
+  "madeira": "Pinus ou cedro",
+  "bitolas": [
+   "Medidas diversas"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria",
+   "beneficiamento"
+  ],
+  "foto": "madeireiralarssen_2020_09_cimalha.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 190,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "guarnicao",
+  "linha": "beneficiada",
+  "nome": "Guarnição",
+  "uso": "Acabamento de portas e janelas",
+  "madeira": "Pinus ou cedro",
+  "bitolas": [
+   "Medidas diversas"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria",
+   "beneficiamento"
+  ],
+  "foto": "madeireiralarssen_2020_09_guarnicao.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 200,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "pergolados",
+  "linha": "tratadas",
+  "nome": "Pergolados",
+  "uso": "Jardins, varandas, garagens e áreas de piscina",
+  "madeira": "Pinus e eucalipto tratados",
+  "bitolas": [
+   "Projetos sob medida"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria",
+   "beneficiamento",
+   "autoclave"
+  ],
+  "foto": "larssenmadeirastratadas_2020_10_pergolado05.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 2,
+  "ativo": true,
+  "ordem": 210,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "decks",
+  "linha": "tratadas",
+  "nome": "Decks de pinus tratado",
+  "uso": "Áreas externas e entorno de piscinas",
+  "madeira": "Pinus tratado",
+  "bitolas": [
+   "Bitolas diversas"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria",
+   "beneficiamento",
+   "autoclave"
+  ],
+  "foto": "larssenmadeirastratadas_2020_10_deck.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 3,
+  "ativo": true,
+  "ordem": 220,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "cercas",
+  "linha": "tratadas",
+  "nome": "Cercas",
+  "uso": "Delimitar terrenos, dar privacidade e decorar jardins",
+  "madeira": "Pinus e eucalipto tratados",
+  "bitolas": [
+   "Modelos diversos"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria",
+   "autoclave"
+  ],
+  "foto": "larssenmadeirastratadas_2020_10_cerca01.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 230,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "dormentes-tratados",
+  "linha": "tratadas",
+  "nome": "Dormentes ferroviários tratados",
+  "uso": "Linhas férreas",
+  "madeira": "Eucalipto de alta densidade",
+  "bitolas": [
+   "Bitola métrica e larga",
+   "Bitolas especiais"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria",
+   "autoclave"
+  ],
+  "foto": "larssenmadeirastratadas_2020_10_dormente04.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 1,
+  "ativo": true,
+  "ordem": 240,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "rolica",
+  "linha": "tratadas",
+  "nome": "Madeira roliça tratada",
+  "uso": "Playgrounds, postes, cercas e estruturas",
+  "madeira": "Eucalipto tratado",
+  "bitolas": [
+   "Diâmetros diversos"
+  ],
+  "carimbos": [
+   "floresta",
+   "autoclave"
+  ],
+  "foto": "larssenmadeirastratadas_2020_10_rolica-tratada.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 250,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "construcao",
+  "linha": "tratadas",
+  "nome": "Madeira para construção civil",
+  "uso": "Casas de madeira e estruturas externas",
+  "madeira": "Pinus e eucalipto tratados",
+  "bitolas": [
+   "Bitolas diversas"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria",
+   "beneficiamento",
+   "autoclave"
+  ],
+  "foto": "larssenmadeirastratadas_2020_10_casa02.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 260,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "mouroes-tratados",
+  "linha": "tratadas",
+  "nome": "Mourões tratados",
+  "uso": "Cercas rurais e de divisa, em contato com o solo",
+  "madeira": "Eucalipto tratado",
+  "bitolas": [
+   "Bitolas diversas"
+  ],
+  "carimbos": [
+   "floresta",
+   "autoclave"
+  ],
+  "foto": "larssenmadeirastratadas_2020_10_mouroes.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 270,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "casas-madeira",
+  "linha": "casas",
+  "nome": "Casas de madeira",
+  "uso": "Moradia e lazer: até 60% mais baratas que alvenaria em certos casos",
+  "madeira": "Pinus, eucalipto e nativa",
+  "bitolas": [
+   "Projeto sob consulta"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria",
+   "beneficiamento",
+   "autoclave"
+  ],
+  "foto": "larssenmadeirastratadas_2020_10_casa01.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 280,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "maravalha-aviario",
+  "linha": "agro",
+  "nome": "Maravalha para aviários",
+  "uso": "Cama macia que retém umidade e reduz doenças",
+  "madeira": "Pinus e eucalipto",
+  "bitolas": [
+   "A granel ou ensacada"
+  ],
+  "carimbos": [
+   "serraria",
+   "beneficiamento"
+  ],
+  "foto": "madeireiralarssen_2020_09_aviarios.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 6,
+  "ativo": true,
+  "ordem": 290,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "compost-barn",
+  "linha": "agro",
+  "nome": "Compost barn",
+  "uso": "Superfície macia e produtiva para estábulos",
+  "madeira": "Pinus e eucalipto",
+  "bitolas": [
+   "A granel"
+  ],
+  "carimbos": [
+   "serraria",
+   "beneficiamento"
+  ],
+  "foto": "madeireiralarssen_2020_09_cama-gado.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 300,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "cama-suinos",
+  "linha": "agro",
+  "nome": "Cama para suínos",
+  "uso": "Mais conforto, menos odor e composto orgânico no fim",
+  "madeira": "Pinus e eucalipto",
+  "bitolas": [
+   "A granel"
+  ],
+  "carimbos": [
+   "serraria",
+   "beneficiamento"
+  ],
+  "foto": "madeireiralarssen_2020_09_suinos.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 310,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "cama-cavalos",
+  "linha": "agro",
+  "nome": "Cama para cavalos",
+  "uso": "Baias de jockeys e hípicas: limpeza e reposição fáceis",
+  "madeira": "Pinus e eucalipto",
+  "bitolas": [
+   "A granel ou ensacada"
+  ],
+  "carimbos": [
+   "serraria",
+   "beneficiamento"
+  ],
+  "foto": "madeireiralarssen_2020_09_cama-cavalo.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 320,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "cavaco",
+  "linha": "industria",
+  "nome": "Cavaco para caldeira",
+  "uso": "Combustível para caldeiras industriais",
+  "madeira": "Pinus e eucalipto",
+  "bitolas": [
+   "Umidade e granulometria uniformes"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria"
+  ],
+  "foto": "madeireiralarssen_2020_09_cavaco.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 8,
+  "ativo": true,
+  "ordem": 330,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "pallets",
+  "linha": "montadas",
+  "nome": "Pallets",
+  "uso": "Transporte e armazenamento de mercadorias",
+  "madeira": "Pinus e eucalipto",
+  "bitolas": [
+   "Medidas variáveis"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria",
+   "beneficiamento"
+  ],
+  "foto": "madeireiralarssen_2020_10_pallets.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 340,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "tesouras",
+  "linha": "montadas",
+  "nome": "Tesouras",
+  "uso": "Casas, galpões, aviários e chiqueirões",
+  "madeira": "Eucalipto",
+  "bitolas": [
+   "Medidas diversas"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria",
+   "beneficiamento"
+  ],
+  "foto": "madeireiralarssen_2020_10_tesouras.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 7,
+  "ativo": true,
+  "ordem": 350,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "pergolados-montados",
+  "linha": "montadas",
+  "nome": "Pergolados montados",
+  "uso": "Casas e jardins",
+  "madeira": "Nativa, eucalipto e pinus tratado",
+  "bitolas": [
+   "Bitolas diversas"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria",
+   "beneficiamento",
+   "autoclave"
+  ],
+  "foto": "madeireiralarssen_2020_10_pergolados.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 360,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ },
+ {
+  "id": "decks-montados",
+  "linha": "montadas",
+  "nome": "Decks montados",
+  "uso": "Áreas externas e piscinas",
+  "madeira": "Eucalipto e pinus tratado",
+  "bitolas": [
+   "Bitolas diversas"
+  ],
+  "carimbos": [
+   "floresta",
+   "serraria",
+   "beneficiamento",
+   "autoclave"
+  ],
+  "foto": "madeireiralarssen_2020_10_decks.jpg",
+  "fotos": [],
+  "descricao": "",
+  "destaque": 0,
+  "ativo": true,
+  "ordem": 370,
+  "criado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_em": "2026-10-22T23:56:26.331447+00:00",
+  "alterado_por": null
+ }
+]
