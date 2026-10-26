@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: atualiza-produtos
   cancel-in-progress: false
@@ -32,3 +33,10 @@ jobs:
           else
             echo "nada mudou"
           fi
+      # O GitHub desliga rotinas agendadas após 60 dias sem commit; reativar a cada execução mantém esta rodando
+      # (e, com ela, o acesso diário ao Supabase que impede o projeto gratuito de ser pausado).
+      - name: Mantém a rotina ativa
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/atualiza-produtos.yml/enable" || echo "não reativou (segue igual)"
