@@ -1,7 +1,7 @@
 // Testes automáticos do site do Grupo Larssen (servidor em :4040). Uso: node build/testa.js
 const puppeteer = require("C:/Users/Douglas/Desktop/CLAUDE/majex-produtos/node_modules/puppeteer-core");
 const fs = require("fs"), path = require("path");
-const BASE = "http://localhost:4040/";
+const BASE = process.env.BASE || "http://localhost:4040/";
 const RAIZ = path.join(__dirname, "..");
 const PAINEL = JSON.parse(fs.readFileSync(path.join(RAIZ, "painel", "catalogo.json"), "utf8"));
 const espera = ms => new Promise(r => setTimeout(r, ms));
