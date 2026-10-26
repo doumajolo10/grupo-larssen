@@ -109,6 +109,23 @@ function rodape() {
   <div class="estrada-r" aria-hidden="true"></div>
 </footer>`;
 }
+// dados estruturados para o Google: o grupo (com os nomes antigos das marcas), as 5 empresas, o site e a trilha da página
+function dadosEstruturados(arquivo, titulo, imagem, home) {
+  const endereco = { "@type": "PostalAddress", streetAddress: CONTATO.endereco, addressLocality: "Três Passos", addressRegion: "RS", postalCode: CONTATO.cep, addressCountry: "BR" };
+  const grupo = {
+    "@type": ["Organization", "LocalBusiness"], "@id": `${SITE}/#grupo`, name: "Grupo Larssen",
+    alternateName: ["Madeireira Larssen", "Larssen Madeiras Tratadas", "Larssen Florestal", "Log Larssen Transportes", "Larssen Escavações"],
+    description: "Floresta, serraria, madeira tratada em autoclave, transporte e escavação em Três Passos/RS, desde 1970.",
+    url: `${SITE}/`, logo: `${SITE}/assets/logo-grupo-larssen.png`, image: imagem, telephone: "+55 55 3522-1635", email: CONTATO.emails.madeireira,
+    address: endereco, areaServed: "BR", foundingDate: "1970", priceRange: "$$",
+    sameAs: ["https://www.instagram.com/grupolarssen", CONTATO.facebook],
+    subOrganization: EMPRESAS.map((e) => ({ "@type": "Organization", name: e.nome, url: `${SITE}/${paginaEmp[e.id]}`, parentOrganization: { "@id": `${SITE}/#grupo` } })),
+  };
+  const site = { "@type": "WebSite", "@id": `${SITE}/#site`, name: "Grupo Larssen", alternateName: ["Madeireira Larssen", "Larssen Madeiras Tratadas"], url: `${SITE}/`, inLanguage: "pt-BR", publisher: { "@id": `${SITE}/#grupo` } };
+  const g = [grupo, site];
+  if (!home) g.push({ "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Grupo Larssen", item: `${SITE}/` }, { "@type": "ListItem", position: 2, name: titulo.split(" · ")[0], item: `${SITE}/${arquivo}` }] });
+  return JSON.stringify({ "@context": "https://schema.org", "@graph": g }).replace(/</g, "\\u003c");
+}
 function pagina({ arquivo, titulo, descricao, corpo, kmIni = 0, kmFim = 25, imagem = "madeireiralarssen_2019_08_aereas.jpg", home = false }) {
   const og = `${SITE}/img/g/${base(imagem)}.webp`;
   const html = `<!doctype html>
@@ -129,7 +146,7 @@ function pagina({ arquivo, titulo, descricao, corpo, kmIni = 0, kmFim = 25, imag
 <link rel="preload" href="fontes/Barlow-600-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fontes/fontes.css?v=${V}">
 <link rel="stylesheet" href="assets/estilo.css?v=${V}">
-<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "Organization", name: "Grupo Larssen", url: SITE, telephone: "+55 55 3522-1635", address: { "@type": "PostalAddress", streetAddress: CONTATO.endereco, addressLocality: "Três Passos", addressRegion: "RS", postalCode: CONTATO.cep, addressCountry: "BR" }, sameAs: ["https://www.instagram.com/grupolarssen", CONTATO.facebook] })}</script>
+<script type="application/ld+json">${dadosEstruturados(arquivo, titulo, og, home)}</script>
 </head>
 <body data-km-ini="${kmIni}" data-km-fim="${kmFim}">
 ${SPRITE}
@@ -512,7 +529,7 @@ const PAINEL_ATIVO = fs.existsSync(path.join(__dirname, "produtos.json"));
 fs.writeFileSync(path.join(RAIZ, "assets/dados-site.js"), "/* gerado por build/build.js */\nwindow.LARSSEN_CTX = " + JSON.stringify(Object.assign({ supa: SUPA, painelAtivo: PAINEL_ATIVO, estaticos: PRODUTOS.map(p => p.id) }, CTX)) + ";\n");
 fs.copyFileSync(path.join(__dirname, "orcamento.js"), path.join(RAIZ, "assets/orcamento.js"));
 { const t = fs.readFileSync(path.join(RAIZ, "assets/logos/icone-madeireira.svg"), "utf8"); const [x, y, w, h] = t.match(/viewBox="([^"]+)"/)[1].split(" ").map(Number); const m = Math.max(w, h) * 0.28, L = Math.max(w, h) + m * 2; const d = arred(t.match(/ d="([^"]+)"/)[1]); fs.writeFileSync(path.join(RAIZ, "assets/favicon.svg"), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${(x + w / 2 - L / 2).toFixed(1)} ${(y + h / 2 - L / 2).toFixed(1)} ${L.toFixed(1)} ${L.toFixed(1)}"><rect x="${(x + w / 2 - L / 2).toFixed(1)}" y="${(y + h / 2 - L / 2).toFixed(1)}" width="${L.toFixed(1)}" height="${L.toFixed(1)}" rx="${(L * 0.2).toFixed(1)}" fill="#54763A"/><path fill="#fff" fill-rule="evenodd" d="${d}"/></svg>`); }
-fs.writeFileSync(path.join(RAIZ, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${paginas.filter(p => p !== "404.html").map(p => `<url><loc>${SITE}/${p === "index.html" ? "" : p}</loc></url>`).join("")}</urlset>\n`);
+fs.writeFileSync(path.join(RAIZ, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${paginas.filter(p => !["404.html", "produto.html"].includes(p)).map(p => `<url><loc>${SITE}/${p === "index.html" ? "" : p}</loc><lastmod>${new Date().toISOString().slice(0, 10)}</lastmod><priority>${p === "index.html" ? "1.0" : /^produto-/.test(p) ? "0.6" : "0.8"}</priority></url>`).join("")}</urlset>\n`);
 fs.writeFileSync(path.join(RAIZ, "robots.txt"), `User-agent: *\nAllow: /\nDisallow: /painel\nSitemap: ${SITE}/sitemap.xml\n`);
 fs.writeFileSync(DIMS_ARQ, JSON.stringify(dims));
 console.log("páginas geradas:", paginas.length);
