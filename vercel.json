@@ -109,6 +109,28 @@
       "permanent": true
     },
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.madeireiralarssen.com.br"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/",
+      "permanent": true
+    },
+    {
       "source": "/quem-somos",
       "has": [
         {
