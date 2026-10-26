@@ -87,6 +87,17 @@
   ],
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "grupo-larssen.vercel.app"
+        }
+      ],
+      "destination": "https://grupolarssen.com.br/",
+      "permanent": true
+    },
+    {
       "source": "/:caminho*",
       "has": [
         {
