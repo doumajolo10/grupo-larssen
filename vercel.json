@@ -351,7 +351,7 @@
       "permanent": true
     },
     {
-      "source": "/:caminho*",
+      "source": "/:caminho(.*)",
       "has": [
         {
           "type": "host",
@@ -582,7 +582,7 @@
       "permanent": true
     },
     {
-      "source": "/:caminho*",
+      "source": "/:caminho(.*)",
       "has": [
         {
           "type": "host",
