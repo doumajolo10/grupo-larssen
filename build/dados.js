@@ -41,7 +41,9 @@ const EMPRESAS = [
     texto: "Instalada no Distrito Industrial de Três Passos/RS, a Madeireira Larssen produz madeira serrada e beneficiada para a construção civil, o agronegócio e a indústria. São 47.000 m² de área, 11.000 m² cobertos, 50 colaboradores e capacidade de 100 m³ por dia, com entregas para todos os estados do Brasil.",
     numeros: [["1970", "início da serraria"], ["47.000 m²", "de área total"], ["11.000 m²", "de área coberta"], ["100 m³", "de produção por dia"], ["50", "colaboradores"]],
     linhas: ["bruta", "beneficiada", "casas", "agro", "industria", "montadas"],
-    foto: "madeireiralarssen_2019_08_empresa3.jpg", fotos: ["madeireiralarssen_2019_08_empresa3.jpg", "madeireiralarssen_2019_08_maquinas.jpg", "madeireiralarssen_2019_08_toras.jpg", "madeireiralarssen_2019_08_galpao.jpg"],
+    // fotos de drone de 09/11/2026 (galpão em arco e pátio de toras: conferido no satélite e na foto de 2019 do site da
+    // madeireira, quando o acabamento era vermelho); ficam as fotos de dentro da serraria
+    foto: "drone_2026_madeireira_frente.jpg", fotos: ["drone_2026_madeireira_frente.jpg", "drone_2026_madeireira_solar.jpg", "madeireiralarssen_2019_08_maquinas.jpg", "madeireiralarssen_2019_08_toras.jpg"],
   },
   {
     id: "tratadas", nome: "Larssen Madeiras Tratadas", curto: "Madeiras Tratadas", desde: 2010, km: 9, cor: "#688838",
@@ -50,8 +52,7 @@ const EMPRESAS = [
     texto: "Extensão da madeireira criada em 2010 para elevar a qualidade, a durabilidade e a resistência das madeiras de pinus e eucalipto cultivadas pelo grupo. Do plantio ao tratamento químico em autoclave e à entrega, todo o processo segue as normas técnicas.",
     numeros: [["2010", "início do tratamento"], ["CCA tipo C", "preservativo usado"], ["10x", "mais durabilidade"], ["6", "etapas na autoclave"]],
     linhas: ["tratadas"],
-    // fotos de drone de 09/11/2026 (enviadas pela cliente) no lugar das de 2020; ficam a autoclave e a empilhadeira
-    foto: "drone_2026_tratadas_frente.jpg", fotos: ["drone_2026_tratadas_frente.jpg", "drone_2026_tratadas_solar.jpg", "larssenmadeirastratadas_2020_01_madelarssen_02.jpg", "ig-empilhadeira.jpg"],
+    foto: "larssenmadeirastratadas_2020_01_madelarssen_06.jpg", fotos: ["larssenmadeirastratadas_2020_01_madelarssen_06.jpg", "ig-empilhadeira.jpg", "larssenmadeirastratadas_2020_01_madelarssen_02.jpg", "larssenmadeirastratadas_2020_01_madelarssen_01.jpg"],
   },
   {
     id: "transportes", nome: "Log Larssen Transportes", curto: "Transportes", desde: 2023, km: 21, cor: "#1B211D",
