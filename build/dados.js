@@ -50,7 +50,8 @@ const EMPRESAS = [
     texto: "Extensão da madeireira criada em 2010 para elevar a qualidade, a durabilidade e a resistência das madeiras de pinus e eucalipto cultivadas pelo grupo. Do plantio ao tratamento químico em autoclave e à entrega, todo o processo segue as normas técnicas.",
     numeros: [["2010", "início do tratamento"], ["CCA tipo C", "preservativo usado"], ["10x", "mais durabilidade"], ["6", "etapas na autoclave"]],
     linhas: ["tratadas"],
-    foto: "larssenmadeirastratadas_2020_01_madelarssen_06.jpg", fotos: ["larssenmadeirastratadas_2020_01_madelarssen_06.jpg", "ig-empilhadeira.jpg", "larssenmadeirastratadas_2020_01_madelarssen_02.jpg", "larssenmadeirastratadas_2020_01_madelarssen_01.jpg"],
+    // fotos de drone de 09/11/2026 (enviadas pela cliente) no lugar das de 2020; ficam a autoclave e a empilhadeira
+    foto: "drone_2026_tratadas_frente.jpg", fotos: ["drone_2026_tratadas_frente.jpg", "drone_2026_tratadas_solar.jpg", "larssenmadeirastratadas_2020_01_madelarssen_02.jpg", "ig-empilhadeira.jpg"],
   },
   {
     id: "transportes", nome: "Log Larssen Transportes", curto: "Transportes", desde: 2023, km: 21, cor: "#1B211D",
@@ -63,7 +64,8 @@ const EMPRESAS = [
       ["Frota própria", "Caminhões e carretas do próprio grupo."],
     ],
     confirmar: true,
-    foto: "madeireiralarssen_2020_10_estrutura.jpg", fotos: ["madeireiralarssen_2020_10_estrutura.jpg", "madeireiralarssen_2020_10_06.jpg", "madeireiralarssen_2020_10_08.jpg", "madeireiralarssen_2019_08_toras2.jpg"],
+    // pátio da Log em fotos de drone de 09/11/2026 (antes eram fotos da serraria de 2020)
+    foto: "drone_2026_log_patio.jpg", fotos: ["drone_2026_log_patio.jpg", "drone_2026_log_patio2.jpg", "madeireiralarssen_2019_08_caminhao.jpg", "madeireiralarssen_2020_10_06.jpg"],
   },
   {
     id: "escavacoes", nome: "Larssen Escavações", curto: "Escavações", km: 25, cor: "#E2A400",
@@ -153,7 +155,7 @@ const ETAPAS = [
   { id: "beneficiamento", nome: "Beneficiamento", km: 5, texto: "Plaina, desengrossadeira e tupia transformam a peça bruta em assoalho, forro, deck e acabamento.", foto: "madeireiralarssen_2020_09_tabuas.jpg" },
   { id: "autoclave", nome: "Autoclave", km: 9, texto: "Vácuo e pressão injetam o preservativo CCA tipo C até a saturação: a madeira dura mais de dez vezes mais.", foto: "larssenmadeirastratadas_2020_01_madelarssen_02.jpg" },
   { id: "subprodutos", nome: "Subprodutos", km: 11, texto: "Nada se perde: maravalha e serragem viram cama de aviário e cavaco vira energia de caldeira.", foto: "madeireiralarssen_2020_10_07.jpg" },
-  { id: "estrada", nome: "Estrada", km: 21, empresa: "transportes", texto: "Frota própria leva a carga do pátio de Três Passos para obras em todo o Brasil.", foto: "madeireiralarssen_2020_10_06.jpg" },
+  { id: "estrada", nome: "Estrada", km: 21, empresa: "transportes", texto: "Frota própria leva a carga do pátio de Três Passos para obras em todo o Brasil.", foto: "drone_2026_log_patio2.jpg" },
   { id: "obra", nome: "Obra", km: 25, empresa: "escavacoes", texto: "Na chegada, escavadeiras e rompedor preparam o terreno onde a madeira vai ser usada.", foto: "ig-escavadeira.jpg" },
 ];
 

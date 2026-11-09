@@ -121,6 +121,12 @@ section { position: relative; }
   font: 600 17px/1 var(--fonte-placa); letter-spacing: .03em; text-decoration: none; background: none; border: 0; cursor: pointer; color: var(--tinta);
 }
 .nav > a:hover, .nav > .sub > button:hover, .nav > a[aria-current="page"] { background: rgba(84, 118, 58, .1); color: var(--verde-esc); }
+/* sobre a foto escura da capa (antes de rolar), o menu fica branco; com o topo cheio volta ao escuro */
+body:has(.capa:not(.clara)) .topo:not(.cheio) .nav > a,
+body:has(.capa:not(.clara)) .topo:not(.cheio) .nav > .sub > button { color: #fff; }
+body:has(.capa:not(.clara)) .topo:not(.cheio) .nav > a:hover,
+body:has(.capa:not(.clara)) .topo:not(.cheio) .nav > .sub > button:hover,
+body:has(.capa:not(.clara)) .topo:not(.cheio) .nav > a[aria-current="page"] { background: rgba(255, 255, 255, .14); color: #fff; }
 .sub { position: relative; }
 .sub > button svg { width: 12px; transition: transform .3s; }
 .sub[aria-expanded="true"] > button svg, .sub:hover > button svg { transform: rotate(180deg); }
@@ -497,7 +503,8 @@ section { position: relative; }
 /* ---------- páginas internas ---------- */
 .capa { position: relative; min-height: 78vh; display: grid; align-items: end; padding-top: 100px; overflow: hidden; color: #fff; background: var(--asfalto); }
 .capa > img { position: absolute; inset: 0; width: 100%; height: 112%; object-fit: cover; }
-.capa::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(18, 24, 16, .86) 0%, rgba(18, 24, 16, .45) 40%, rgba(18, 24, 16, .1) 70%); }
+/* sombra também no alto: fotos de drone (céu e telhado claros) deixavam o menu ilegível (09/11/2026) */
+.capa::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(18, 24, 16, .62) 0, rgba(18, 24, 16, 0) 170px), linear-gradient(0deg, rgba(18, 24, 16, .86) 0%, rgba(18, 24, 16, .45) 40%, rgba(18, 24, 16, .1) 70%); }
 .capa .miolo { position: relative; z-index: 2; padding-bottom: clamp(40px, 7vw, 90px); }
 .capa h1 { color: #fff; max-width: 14ch; margin-bottom: 18px; }
 .capa p { color: rgba(255, 255, 255, .92); font-size: clamp(1.1rem, 1.5vw, 1.3rem); max-width: 56ch; }
